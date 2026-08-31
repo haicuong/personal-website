@@ -1,4 +1,3 @@
-// vite.config.ts
 import { resolve } from "path";
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
