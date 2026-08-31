@@ -1,6 +1,6 @@
 # Nguyen Hai Cuong's Digital Garden & Portfolio
 
-Showcasing my software engineering projects, technical notes and controversial psychology through opposing lenses.
+Showcase my software engineering projects, technical notes and controversial psychology through opposing lenses.
 
 ## 🛠 Tech Stack
 
@@ -21,7 +21,7 @@ Showcasing my software engineering projects, technical notes and controversial p
 1. **Clone the repository:**
 
    ```bash
-   git clone [https://github.com/haicuong/personal-website.git](https://github.com/haicuong/personal-website.git)
+   git clone https://github.com/haicuong/personal-website.git
    cd personal-website
    ```
 
