@@ -1,2 +1,12 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+:root {
+  color-scheme: light dark;
+}
+
+@layer base {
+  body: {
+    @apply bg-white flex dark:text-white flex-col min-h-screen dark:bg-[#121212] border-black dark:border-white;
+  }
+}

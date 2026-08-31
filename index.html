@@ -3,11 +3,97 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="src/styles/main.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>personal-website</title>
+    <title>Hai Cuong's Homepage</title>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <site-header></site-header>
+    <main class="flex-1 flex flex-col gap-12 py-8 pb-16 px-[10vw]">
+      <header
+        class="flex w-full flex-col gap-1 mb-4 items-center justify-self-start"
+      >
+        <img
+          class="rounded-full size-40 mb-4"
+          src="src/assets/images/profile-picture.jpg"
+          alt="Profile picture"
+        />
+        <span class="font-bold text-4xl whitespace-nowrap">
+          Nguyen Hai Cuong</span
+        >
+        <p class="text-center text-lg">Aspiring Full-Stack Developer</p>
+      </header>
+      <section class="flex flex-col gap-3">
+        <h2 class="text-2xl font-bold">About & Focus</h2>
+        <p class="indent-8">
+          Studying Software Engineer at UIT (VNU-HCM). I focus on mastering core
+          computer science concepts, writing clean TypeScript code, and building
+          full-stack applications. This site serves as my digital garden,
+          documenting my learning journey and projects in public.
+        </p>
+      </section>
+      <section class="flex flex-col gap-3">
+        <h2 class="text-2xl font-bold">Featured Projects</h2>
+        <div class="flex gap-4 mx-10 justify-center">
+          <article
+            class="flex flex-col transition-colors hover:bg-gray-100 dark:hover:bg-[#202020] gap-2 min-w-50 max-w-[25vw] border rounded-2xl p-4"
+          >
+            <h3 class="font-bold text-lg">Task Manager V2</h3>
+            <p class="my-4 flex-1 flex items-center">
+              A zero-framework task manager built with strict TypeScript, ES
+              modules, and custom event handling.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="rounded-full p-1 px-3 text-[#E34F26] bg-[#e34f2620]"
+                >HTML</span
+              >
+              <span class="rounded-full p-1 px-3 text-[#3178C6] bg-[#3178C620]"
+                >TypeScript</span
+              >
+              <span class="rounded-full p-1 px-3 text-[#38BDF8] bg-[#38BDF820]"
+                >TailwindCSS</span
+              >
+            </div>
+            <div class="m-2 mt-3">
+              <a
+                class="text-blue-500"
+                href="https://github.com/haicuong/task-manager"
+                target="_blank"
+                rel="noopener noreferrer"
+                >View Source &rarr;</a
+              >
+            </div>
+          </article>
+          <article
+            class="flex flex-col transition-colors hover:bg-gray-100 dark:hover:bg-[#202020] gap-2 min-w-50 max-w-[25vw] border rounded-2xl p-4"
+          >
+            <h3 class="font-bold text-lg">Personal Website (This website)</h3>
+            <p class="my-4 flex-1 items-center">My personal ongoing site.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="rounded-full p-1 px-3 text-[#E34F26] bg-[#e34f2620]"
+                >HTML</span
+              >
+              <span class="rounded-full p-1 px-3 text-[#3178C6] bg-[#3178C620]"
+                >TypeScript</span
+              >
+              <span class="rounded-full p-1 px-3 text-[#38BDF8] bg-[#38BDF820]"
+                >TailwindCSS</span
+              >
+            </div>
+            <div class="m-2 mt-3">
+              <a
+                class="text-blue-500"
+                href="https://github.com/haicuong/personal-website"
+                target="_blank"
+                rel="noopener noreferrer"
+                >View Source &rarr;</a
+              >
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+    <site-footer></site-footer>
+    <script type="module" src="/src/scripts/main.ts"></script>
   </body>
 </html>

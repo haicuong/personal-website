@@ -6,11 +6,14 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "index.html"),
-        blog: resolve(__dirname, "blog/index.html"),
-        projects: resolve(__dirname, "projects/index.html"),
+        main: resolve(import.meta.dirname, "index.html"),
+        blog: resolve(import.meta.dirname, "blog/index.html"),
+        projects: resolve(import.meta.dirname, "projects/index.html"),
       },
     },
+  },
+  server: {
+    host: true,
   },
   plugins: [tailwindcss()],
 });

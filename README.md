@@ -2,6 +2,8 @@
 
 Showcase my software engineering projects, technical notes and controversial psychology through opposing lenses.
 
+**🔴 Live Website:** (Coming soon)
+
 ## 🛠 Tech Stack
 
 - **Build Tool:** Vite

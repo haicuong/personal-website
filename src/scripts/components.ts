@@ -1,0 +1,67 @@
+// Shared Header Component
+class SiteHeader extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = `
+      <header class="grid grid-cols-3 py-2 px-5 bg-gray-200 dark:bg-[#232323]">
+        <div class="flex gap-3 items-center justify-self-start">
+          <img
+            class="rounded-full size-10 object-cover"
+            src="src/assets/images/profile-picture.jpg"
+            alt="Profile picture"
+          />
+          <span class="font-bold text-lg whitespace-nowrap">Hai Cuong</span>
+        </div>
+        <nav class="flex gap-2 justify-center items-center">
+          <button
+            class="p-3 transition-colors rounded-lg active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
+          >
+            Home
+          </button>
+          <button
+            class="p-3 transition-colors rounded-lg active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
+          >
+            Projects
+          </button>
+          <button
+            class="p-3 transition-colors rounded-lg active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
+          >
+            Blogs
+          </button>
+        </nav>
+        <div class="justify-self-end">Right</div>
+      </header>
+    `;
+  }
+}
+
+// Shared Footer Component
+class SiteFooter extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = `
+      <footer class="flex p-8 bg-gray-200 dark:bg-[#232323]">
+      <address class="flex flex-col">
+        <span class="text-lg font-bold">Nguyen Hai Cuong</span>
+        <span
+          >Github:
+          <a
+            class="text-blue-500"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://github.com/haicuong"
+            >@haicuong</a
+          ></span
+        >
+        <span>
+          Mail for work:
+          <a class="text-blue-500" href="mailto:haicuong.work@gmail.com"
+            >haicuong.work@gmail.com</a
+          >
+        </span>
+      </address>
+    </footer>
+    `;
+  }
+}
+
+customElements.define("site-header", SiteHeader);
+customElements.define("site-footer", SiteFooter);
