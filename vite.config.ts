@@ -1,10 +1,10 @@
 // vite.config.ts
-// import { resolve } from "path";
+import { resolve } from "path";
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  /* build: {
+  build: {
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
@@ -12,6 +12,6 @@ export default defineConfig({
         projects: resolve(__dirname, "projects/index.html"),
       },
     },
-  }, */
+  },
   plugins: [tailwindcss()],
 });

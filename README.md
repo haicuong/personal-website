@@ -1,3 +1,3 @@
 # Personal website
 
-Personal website contain About me, Porfolio, Blogs
+Personal website contains About me, Porfolio, Blogs
