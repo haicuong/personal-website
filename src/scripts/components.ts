@@ -6,7 +6,7 @@ class SiteHeader extends HTMLElement {
           <img
             id="header-profile-picture"
             class="rounded-full size-10 object-cover"
-            src="images/profile-picture.jpg"
+            src="profile-picture.jpg"
             alt="Profile picture"
           />
         </div>
