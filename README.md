@@ -2,7 +2,7 @@
 
 Showcase my software engineering projects, technical notes and controversial psychology through opposing lenses.
 
-**🔴 Live Website:** (Coming soon)
+**🔴 Live Website:** [haicuong.me](https://haicuong.me)
 
 ## 🛠 Tech Stack
 
