@@ -6,9 +6,10 @@ class SiteHeader extends HTMLElement {
           <img
             id="header-profile-picture"
             class="rounded-full size-10 object-cover"
-            src="profile-picture.jpg"
+            src="/profile-picture.jpg"
             alt="Profile picture"
           />
+          <span class="font-bold hidden md:inline">Hai Cuong</span>
         </div>
         <nav class="flex gap-2 justify-center items-center">
           <button
@@ -27,7 +28,7 @@ class SiteHeader extends HTMLElement {
             Blogs
           </button>
         </nav>
-        <div class="justify-self-end invisible">Right</div>
+        <div class="justify-self-end invisible"></div>
       </header>
     `;
   }
