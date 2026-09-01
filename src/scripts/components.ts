@@ -1,13 +1,12 @@
-// Shared Header Component
 class SiteHeader extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <header class="grid w-full grid-cols-3 sticky top-0 z-50 py-2 px-5 bg-gray-200 dark:bg-[#232323]">
-        <div class="invisible flex md:visible gap-3 items-center justify-self-start">
+        <div class="flex gap-3 items-center justify-self-start">
           <img
             id="header-profile-picture"
             class="rounded-full size-10 object-cover"
-            src="src/assets/images/profile-picture.jpg"
+            src="images/profile-picture.jpg"
             alt="Profile picture"
           />
         </div>
@@ -34,7 +33,6 @@ class SiteHeader extends HTMLElement {
   }
 }
 
-// Shared Footer Component
 class SiteFooter extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
@@ -51,8 +49,10 @@ class SiteFooter extends HTMLElement {
             >@haicuong</a
           ></span
         >
+        <br />
+        <span>Contact for work</span>
         <span>
-          Mail for work:
+          Email:
           <a class="text-blue-500" href="mailto:haicuong.work@gmail.com"
             >haicuong.work@gmail.com</a
           >
