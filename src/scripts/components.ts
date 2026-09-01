@@ -2,14 +2,14 @@
 class SiteHeader extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-      <header class="grid grid-cols-3 py-2 px-5 bg-gray-200 dark:bg-[#232323]">
-        <div class="flex gap-3 items-center justify-self-start">
+      <header class="grid w-full grid-cols-3 sticky top-0 z-50 py-2 px-5 bg-gray-200 dark:bg-[#232323]">
+        <div class="invisible flex md:visible gap-3 items-center justify-self-start">
           <img
+            id="header-profile-picture"
             class="rounded-full size-10 object-cover"
             src="src/assets/images/profile-picture.jpg"
             alt="Profile picture"
           />
-          <span class="font-bold text-lg whitespace-nowrap">Hai Cuong</span>
         </div>
         <nav class="flex gap-2 justify-center items-center">
           <button
@@ -28,7 +28,7 @@ class SiteHeader extends HTMLElement {
             Blogs
           </button>
         </nav>
-        <div class="justify-self-end">Right</div>
+        <div class="justify-self-end invisible">Right</div>
       </header>
     `;
   }
