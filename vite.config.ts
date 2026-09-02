@@ -3,12 +3,14 @@ import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 import { globSync } from "glob";
 
-const htmlEntries = globSync("**/index.html", {
-  ignore: ["node_modules/**", "dist/**"],
+const htmlEntries = globSync(["**/index.html", "404.html"], {
+  ignore: ["node_modules/**", "dist/**", "packages/**"],
 }).reduce(
   (acc, file) => {
     const name =
-      file.replace(/\/index\.html$/, "").replace(/\//g, "_") || "main";
+      file === "404.html"
+        ? "404"
+        : file.replace(/\/index\.html$/, "").replace(/\//g, "_") || "main";
     acc[name] = resolve(import.meta.dirname, file);
     return acc;
   },
@@ -16,6 +18,7 @@ const htmlEntries = globSync("**/index.html", {
 );
 
 export default defineConfig({
+  appType: "mpa",
   build: {
     rollupOptions: {
       input: htmlEntries,

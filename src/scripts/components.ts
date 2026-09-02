@@ -1,35 +1,32 @@
 class SiteHeader extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-      <header class="grid w-full grid-cols-3 sticky top-0 z-50 py-2 px-5 bg-gray-200 dark:bg-[#232323]">
-        <div class="flex gap-3 items-center justify-self-start">
-          <img
-            id="header-profile-picture"
-            class="rounded-full size-10 object-cover"
-            src="/profile-picture.jpg"
-            alt="Profile picture"
-          />
-          <span class="font-bold hidden md:inline">Hai Cuong</span>
-        </div>
-        <nav class="flex gap-2 justify-center items-center">
-          <button
-            class="p-3 transition-colors rounded-lg active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
-          >
-            Home
-          </button>
-          <button
-            class="p-3 transition-colors rounded-lg active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
-          >
-            Projects
-          </button>
-          <button
-            class="p-3 transition-colors rounded-lg active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
-          >
-            Blogs
-          </button>
-        </nav>
-        <div class="justify-self-end invisible"></div>
-      </header>
+      <div class="flex h-10 gap-3 items-center justify-self-start">
+        <img
+          class="rounded-full h-full w-auto aspect-square object-cover"
+          src="/profile-picture.jpg"
+          alt="Profile picture"
+        />
+        <span class="font-bold hidden md:inline">Hai Cuong</span>
+      </div>
+      <nav class="flex gap-2 justify-center items-center">
+        <a href="/"
+          class="p-3 transition-colors rounded-lg active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
+        >
+          Home
+        </a>
+        <a href="/projects/"
+          class="p-3 transition-colors rounded-lg active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
+        >
+          Projects
+        </a>
+        <a href="/blog/"
+          class="p-3 transition-colors rounded-lg active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
+        >
+          Blog
+        </a>
+      </nav>
+      <div class="justify-self-end invisible"></div>
     `;
   }
 }
@@ -37,7 +34,6 @@ class SiteHeader extends HTMLElement {
 class SiteFooter extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-      <footer class="flex p-8 bg-gray-200 dark:bg-[#232323]">
       <address class="flex flex-col">
         <span class="text-lg font-bold">Nguyen Hai Cuong</span>
         <span
@@ -59,7 +55,6 @@ class SiteFooter extends HTMLElement {
           >
         </span>
       </address>
-    </footer>
     `;
   }
 }
