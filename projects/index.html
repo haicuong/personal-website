@@ -10,7 +10,66 @@
   </head>
   <body>
     <site-header></site-header>
-    <main></main>
+    <main class="gap-8 mx-2 md:mx-10 justify-center items-center">
+      <h1 class="font-bold text-3xl">Projects</h1>
+      <div class="flex flex-col gap-8 md:flex-row">
+        <article
+          class="flex flex-col transition-colors hover:bg-gray-100 dark:hover:bg-[#202020] gap-2 md:min-w-75 md:max-w-[50vw] border rounded-2xl p-4"
+        >
+          <h3 class="font-bold text-lg">Task Manager V2</h3>
+          <p class="my-4 flex-1 flex items-center">
+            A zero-framework task manager built with strict TypeScript, ES
+            modules, and custom event handling.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="rounded-full p-1 px-3 text-[#E34F26] bg-[#e34f2620]"
+              >HTML</span
+            >
+            <span class="rounded-full p-1 px-3 text-[#3178C6] bg-[#3178C620]"
+              >TypeScript</span
+            >
+            <span class="rounded-full p-1 px-3 text-[#38BDF8] bg-[#38BDF820]"
+              >TailwindCSS</span
+            >
+          </div>
+          <div class="mb-4 mt-8 md:m-2 md:mt-3">
+            <a
+              class="text-blue-500 bg-blue-500/20 p-4 rounded-full md:bg-transparent md:p-0 md:rounded-none"
+              href="https://github.com/haicuong/task-manager"
+              target="_blank"
+              rel="noopener noreferrer"
+              >View Source &rarr;</a
+            >
+          </div>
+        </article>
+        <article
+          class="flex flex-col transition-colors hover:bg-gray-100 dark:hover:bg-[#202020] gap-2 md:min-w-75 md:max-w-[50vw] border rounded-2xl p-4"
+        >
+          <h3 class="font-bold text-lg">Personal Website (This website)</h3>
+          <p class="my-4 flex-1 items-center">My personal ongoing site.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="rounded-full p-1 px-3 text-[#E34F26] bg-[#e34f2620]"
+              >HTML</span
+            >
+            <span class="rounded-full p-1 px-3 text-[#3178C6] bg-[#3178C620]"
+              >TypeScript</span
+            >
+            <span class="rounded-full p-1 px-3 text-[#38BDF8] bg-[#38BDF820]"
+              >TailwindCSS</span
+            >
+          </div>
+          <div class="mb-4 mt-8 md:m-2 md:mt-3">
+            <a
+              class="text-blue-500 bg-blue-500/20 p-4 rounded-full md:bg-transparent md:p-0 md:rounded-none"
+              href="https://github.com/haicuong/personal-website"
+              target="_blank"
+              rel="noopener noreferrer"
+              >View Source &rarr;</a
+            >
+          </div>
+        </article>
+      </div>
+    </main>
     <site-footer></site-footer>
   </body>
 </html>
