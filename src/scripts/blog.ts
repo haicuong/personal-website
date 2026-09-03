@@ -24,7 +24,7 @@ async function loadBlogPost(): Promise<void> {
           class="flex flex-col transition-colors hover:bg-gray-100 dark:hover:bg-[#202020] md:min-w-75 md:max-w-[30vw] border rounded-2xl p-4"
         >
           <h3 class="text-lg font-bold">${post.title}</h3>
-          <span class="text-sm text-gray-400">${new Date(post.date).toLocaleDateString()}</span>
+          <span class="text-sm text-gray-400">${post.date ? new Date(post.date).toLocaleDateString() : "Date not found"}</span>
           <img
             class="object-cover aspect-video my-2"
             src="${post.coverImage}"

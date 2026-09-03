@@ -13,8 +13,14 @@
     <site-header></site-header>
     <main>
       <article
-        class="prose-p:my-6 prose-img:my-2 prose-h1:text-center prose-h1:mb-16 prose-h1:mt-4 prose dark:prose-invert w-full max-w-none mx-auto"
+        class="prose-p:my-6 prose-img:my-2 prose-h1:text-center prose-h1:mb-16 prose-h1:mt-8 prose dark:prose-invert w-full max-w-none mx-auto"
       >
+        <img
+          class="aspect-16/4 object-cover rounded-3xl"
+          src="{{COVER_IMAGE_URL}}"
+          alt="Cover Image"
+        />
+        <hr />
         {{CONTENT}}
       </article>
     </main>

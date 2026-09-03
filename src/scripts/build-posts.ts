@@ -58,6 +58,7 @@ async function buildPosts(): Promise<void> {
     const htmlContent = await marked.parse(parsed.content);
 
     const finalHtml = template
+      .replaceAll("{{COVER_IMAGE_URL}}", data.coverImage || "")
       .replaceAll("{{TITLE}}", data.title || "Untitled Post")
       .replaceAll("{{DESCRIPTION}}", data.description || "")
       .replaceAll("{{CONTENT}}", htmlContent);

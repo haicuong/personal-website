@@ -12,9 +12,9 @@ coverImage: "/images/blog/hello-world/cover.jpg"
 Welcome to the initial test post for the blog system. This article contains various Markdown elements to verify that **frontmatter metadata**, **inline formatting**, **lists**, **blockquotes**, and **Shiki code blocks** render as expected.
 
 
-Cover image:
+<!-- Cover image:
 ![Cover image](/images/blog/hello-world/cover.jpg)
-
+ -->
 ---
 
 ## 1. Typography & Inline Elements
