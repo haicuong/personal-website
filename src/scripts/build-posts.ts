@@ -41,7 +41,6 @@ async function buildPosts(): Promise<void> {
   if (!fs.existsSync(CONTENT_DIR)) {
     console.log("No blog/content directory found. Creating it...");
     fs.mkdirSync(CONTENT_DIR, { recursive: true });
-    return;
   }
 
   const files = fs
