@@ -8,7 +8,7 @@ export interface PostMetadata {
   coverImage: string;
 }
 
-export interface FrontmatterData {
+export interface BlogFrontmatterData {
   title?: string;
   date?: string;
   description?: string;

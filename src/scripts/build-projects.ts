@@ -3,16 +3,16 @@ import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
 import { createHighlighter } from "shiki";
-import type { PostMetadata, BlogFrontmatterData } from "./types/blog";
+import type { ProjectMetadata, ProjectFrontmatterData } from "./types/projects";
 
 //MODULE, DO NOT EXPORT
 
-const CONTENT_DIR = path.resolve("blog/content");
+const CONTENT_DIR = path.resolve("projects/content");
 const TEMPLATE_PATH = path.resolve("blog/templates/post-template.html");
-const OUTPUT_POSTS_DIR = path.resolve("blog/posts");
-const INDEX_JSON_PATH = path.resolve("public/posts.json");
+const OUTPUT_POSTS_DIR = path.resolve("projects/posts");
+const INDEX_JSON_PATH = path.resolve("public/projects.json");
 
-async function buildPosts(): Promise<void> {
+async function buildProjects(): Promise<void> {
   const highlighter = await createHighlighter({
     themes: ["github-dark"],
     langs: ["javascript", "typescript", "html", "css", "json", "bash"],
@@ -46,20 +46,20 @@ async function buildPosts(): Promise<void> {
   const files = fs
     .readdirSync(CONTENT_DIR)
     .filter((file) => file.endsWith(".md"));
-  const metadataList: PostMetadata[] = [];
+  const metadataList: ProjectMetadata[] = [];
 
   for (const file of files) {
     const slug = file.replace(/\.md$/, "");
     const rawContent = fs.readFileSync(path.join(CONTENT_DIR, file), "utf-8");
 
     const parsed = matter(rawContent);
-    const data = parsed.data as BlogFrontmatterData;
+    const data = parsed.data as ProjectFrontmatterData;
 
     const htmlContent = await marked.parse(parsed.content);
 
     const finalHtml = template
       .replaceAll("{{COVER_IMAGE_URL}}", data.coverImage || "")
-      .replaceAll("{{TITLE}}", data.title || "Untitled Post")
+      .replaceAll("{{TITLE}}", data.title || "Untitled Project")
       .replaceAll("{{DESCRIPTION}}", data.description || "")
       .replaceAll("{{CONTENT}}", htmlContent);
 
@@ -69,11 +69,13 @@ async function buildPosts(): Promise<void> {
 
     metadataList.push({
       slug,
-      url: `/blog/posts/${slug}/`,
+      url: `/projects/posts/${slug}/`,
       title: data.title || slug,
       date: data.date || "",
       description: data.description || "",
-      tags: data.tags || [],
+      techStack: data.techStack || [],
+      repoUrl: data.repoUrl || "",
+      liveUrl: data.liveUrl || "",
       coverImage: data.coverImage || "",
     });
   }
@@ -86,10 +88,10 @@ async function buildPosts(): Promise<void> {
   fs.writeFileSync(INDEX_JSON_PATH, JSON.stringify(metadataList, null, 2));
 
   console.log(
-    `Successfully compiled ${metadataList.length} post(s) and generated public/posts.json`,
+    `Successfully compiled ${metadataList.length} project(s) and generated public/projects.json`,
   );
 
   highlighter.dispose();
 }
 
-buildPosts().catch(console.error);
+buildProjects().catch(console.error);

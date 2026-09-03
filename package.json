@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx src/scripts/build-posts.ts && vite",
-    "build": "tsx src/scripts/build-posts.ts && npm run lint:css && tsc && vite build",
+    "dev": "tsx src/scripts/build-projects.ts && tsx src/scripts/build-posts.ts && vite",
+    "build": "tsx src/scripts/build-projects.ts && tsx src/scripts/build-posts.ts && npm run lint:css && tsc && vite build",
     "preview": "vite preview",
     "lint:css": "stylelint \"src/**/*.css\" --max-warnings 0"
   },

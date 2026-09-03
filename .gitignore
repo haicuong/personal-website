@@ -12,6 +12,7 @@ dist
 dist-ssr
 blog/posts
 public/posts.json
+public/projects.json
 *.local
 
 # Editor directories and files
