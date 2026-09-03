@@ -8,6 +8,7 @@
     <title>Homepage | Hai Cuong</title>
     <script type="module" src="/src/scripts/main.ts"></script>
     <script type="module" src="/src/scripts/blog.ts"></script>
+    <script type="module" src="/src/scripts/projects.ts"></script>
   </head>
   <body>
     <site-header></site-header>
@@ -42,14 +43,15 @@
           <span class="font-bold text-2xl">Featured Projects</span>
           <a
             class="p-3 ml-auto rounded-lg transition-all md:active:scale-95 active:scale-90 bg-gray-200 dark:bg-[#232323] active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
-            href="/blog/"
+            href="/projects/"
             >Projects &rarr;</a
           >
         </h1>
         <div
-          class="flex flex-col md:flex-row gap-8 mx-5 md:mx-10 justify-center"
+          id="projects-container"
+          class="flex gap-4 my-4 mx-2 overflow-auto justify-center"
         >
-          <article
+          <!-- <article
             class="flex flex-col transition-colors hover:bg-gray-100 dark:hover:bg-[#202020] gap-2 md:min-w-50 md:max-w-[25vw] border rounded-2xl p-4"
           >
             <h3 class="font-bold text-lg">Task Manager V2</h3>
@@ -103,7 +105,7 @@
                 >View Source &rarr;</a
               >
             </div>
-          </article>
+          </article> -->
         </div>
       </section>
       <section>

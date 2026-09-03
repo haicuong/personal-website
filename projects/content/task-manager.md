@@ -5,7 +5,7 @@ description: "A zero-framework task manager built with strict TypeScript, ES mod
 techStack: ["HTML", "TailwindCSS", "Typescript"]
 repoUrl: "https://github.com/haicuong/task-manager"
 liveUrl: ""
-coverImage: "/images/blog/hello-world/cover.jpg"
+coverImage: "/images/projects/task-manager/cover.jpg"
 ---
 
 # Task Manager V2
