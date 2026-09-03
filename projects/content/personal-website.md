@@ -12,6 +12,7 @@ coverImage: "/images/projects/personal-website/cover.jpg"
 
 Showcase my software engineering projects, technical notes and controversial psychology through opposing lenses.
 
+Live website: [haicuong.me](https://haicuong.me/)\
 Source code: [personal-website](https://github.com/haicuong/personal-website)
 
 ## 🛠 Tech Stack
