@@ -5,12 +5,36 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="/src/styles/main.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hai Cuong's blog</title>
+    <title>Blog | Hai Cuong</title>
+    <script type="module" src="/src/scripts/blog.ts"></script>
     <script type="module" src="/src/scripts/main.ts"></script>
   </head>
   <body>
     <site-header></site-header>
-    <main></main>
+    <main>
+      <h1 class="text-center text-3xl font-bold">Blog</h1>
+      <div>
+        <h2 class="text-2xl font-bold">Recent posts</h2>
+        <div id="post-container" class="flex gap-2 my-4 mx-2 overflow-auto">
+          <!-- <a
+            href="/blog/posts/hello-world/"
+            class="flex flex-col transition-colors hover:bg-gray-100 dark:hover:bg-[#202020] md:min-w-75 md:max-w-[30vw] border rounded-2xl p-4"
+          >
+            <h3 class="text-lg font-bold">Title</h3>
+            <span class="text-sm text-gray-400">03/09/2026</span>
+            <img
+              class="object-cover aspect-video my-2"
+              src="/public/images/blog/hello-world/cover.jpg"
+              alt="Cover image"
+            />
+            <p class="text-base my-4">
+              A comprehensive test post verifying frontmatter parsing, Shiki
+              code syntax highlighting, and Tailwind Typography styling.
+            </p>
+          </a> -->
+        </div>
+      </div>
+    </main>
     <site-footer></site-footer>
   </body>
 </html>
