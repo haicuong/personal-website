@@ -3,7 +3,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
 import { createHighlighter } from "shiki";
-import type { PostMetadata, BlogFrontmatterData } from "./types/blog";
+import type { PostMetadata, BlogFrontmatterData } from "./types/blog-types";
 
 //MODULE, DO NOT EXPORT
 

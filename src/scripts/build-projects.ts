@@ -3,11 +3,15 @@ import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
 import { createHighlighter } from "shiki";
-import type { ProjectMetadata, ProjectFrontmatterData } from "./types/projects";
+import type {
+  ProjectMetadata,
+  ProjectFrontmatterData,
+} from "./types/projects-types";
 
 //MODULE, DO NOT EXPORT
 
 const CONTENT_DIR = path.resolve("projects/content");
+//TODO: create project template
 const TEMPLATE_PATH = path.resolve("blog/templates/post-template.html");
 const OUTPUT_POSTS_DIR = path.resolve("projects/posts");
 const INDEX_JSON_PATH = path.resolve("public/projects.json");
@@ -27,6 +31,17 @@ async function buildProjects(): Promise<void> {
           lang: validLang,
           theme: "github-dark",
         });
+      },
+      link({ href, title, text }) {
+        const isExternal =
+          href.startsWith("http://") || href.startsWith("https://");
+
+        const titleAttribute = title ? `title="${title}"` : "";
+        const securityAttributes = isExternal
+          ? 'target="_blank" rel="noopener noreferrer"'
+          : "";
+
+        return `<a href="${href}" ${titleAttribute} ${securityAttributes}>${text}</a>`;
       },
     },
   });

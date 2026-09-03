@@ -11,17 +11,17 @@ class SiteHeader extends HTMLElement {
       </div>
       <nav class="flex gap-2 justify-center items-center">
         <a href="/"
-          class="p-3 rounded-lg transition-all md:active:scale-95 active:scale-90 bg-gray-300 dark:bg-[#454545] md:bg-transparent md:dark:bg-transparent active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
+          class="p-3 rounded-lg transition-all md:active:scale-95 active:scale-90 bg-gray-300 dark:bg-[#343434] md:bg-transparent md:dark:bg-transparent active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
         >
           Home
         </a>
         <a href="/projects/"
-          class="p-3 rounded-lg transition-all md:active:scale-95 active:scale-90 bg-gray-300 dark:bg-[#454545] md:bg-transparent md:dark:bg-transparent active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
+          class="p-3 rounded-lg transition-all md:active:scale-95 active:scale-90 bg-gray-300 dark:bg-[#343434] md:bg-transparent md:dark:bg-transparent active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
         > 
           Projects
         </a>
         <a href="/blog/"
-          class="p-3 rounded-lg transition-all md:active:scale-95 active:scale-90 bg-gray-300 dark:bg-[#454545] md:bg-transparent md:dark:bg-transparent active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
+          class="p-3 rounded-lg transition-all md:active:scale-95 active:scale-90 bg-gray-300 dark:bg-[#343434] md:bg-transparent md:dark:bg-transparent active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
         >
           Blog
         </a>
