@@ -2,7 +2,7 @@
 title: "Hello World: Testing the Markdown Engine"
 date: "2026-09-03"
 description: "A comprehensive test post verifying frontmatter, Shiki code highlighting, and Tailwind Typography."
-tags: ["test", "vite", "typescript", "markdown"]
+tags: ["Test", "Vite", "Typescript", "Markdown"]
 coverImage: "/images/blog/hello-world/cover.jpg"
 ---
 

@@ -6,10 +6,10 @@
     "date": "2026-09-03",
     "description": "A comprehensive test post verifying frontmatter, Shiki code highlighting, and Tailwind Typography.",
     "tags": [
-      "test",
-      "vite",
-      "typescript",
-      "markdown"
+      "Test",
+      "Vite",
+      "Typescript",
+      "Markdown"
     ],
     "coverImage": "/images/blog/hello-world/cover.jpg"
   },
@@ -20,10 +20,10 @@
     "date": "2026-09-02",
     "description": "A quick guide to building your first automated farm using basic Redstone mechanics and observers.",
     "tags": [
-      "minecraft",
-      "redstone",
-      "tutorial",
-      "gaming"
+      "Minecraft",
+      "Redstone",
+      "Tutorial",
+      "Gaming"
     ],
     "coverImage": "/images/blog/redstone-automation/cover.jpg"
   },
@@ -34,10 +34,10 @@
     "date": "2026-09-01",
     "description": "Exploring how to strictly type standard browser fetch requests for a more robust frontend architecture.",
     "tags": [
-      "typescript",
-      "webdev",
-      "javascript",
-      "frontend"
+      "Typescript",
+      "Webdev",
+      "Javascript",
+      "Frontend"
     ],
     "coverImage": "/images/blog/ts-data-fetching/cover.png"
   }

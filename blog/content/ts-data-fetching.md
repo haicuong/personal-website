@@ -2,7 +2,7 @@
 title: "Type-Safe Data Fetching in TypeScript"
 date: "2026-09-01"
 description: "Exploring how to strictly type standard browser fetch requests for a more robust frontend architecture."
-tags: ["typescript", "webdev", "javascript", "frontend"]
+tags: ["Typescript", "Webdev", "Javascript", "Frontend"]
 coverImage: "/images/blog/ts-data-fetching/cover.png"
 ---
 

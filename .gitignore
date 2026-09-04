@@ -12,7 +12,7 @@ dist
 dist-ssr
 blog/posts
 projects/posts
-public/posts.json
+public/blogs.json
 public/projects.json
 *.local
 

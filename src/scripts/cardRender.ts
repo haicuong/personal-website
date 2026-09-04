@@ -39,6 +39,16 @@ async function loadCards<T>(
 }
 
 function renderBlogCard(data: BlogMetadata) {
+  const tags: string[] = [];
+  for (const tag of data.tags) {
+    const hexColor = techStackHexColorMap.get(tag.toLowerCase());
+    tags.push(`
+      <span
+        style="color: #${hexColor ? hexColor : "F3F4F6"}; background-color: #${hexColor ? hexColor : "F3F4F6"}25;"
+        class="rounded-full p-1 px-3"
+        >${tag}
+      </span>`);
+  }
   return `
     <a
       href="${data.url}"
@@ -54,6 +64,9 @@ function renderBlogCard(data: BlogMetadata) {
       <p class="text-base line-clamp-3 my-4">
         ${data.description}
       </p>
+      <div class="flex flex-wrap gap-2">
+        ${tags.join("")}
+      </div>
     </a>`;
 }
 
