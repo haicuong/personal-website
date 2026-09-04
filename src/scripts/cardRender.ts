@@ -39,16 +39,6 @@ async function loadCards<T>(
 }
 
 function renderBlogCard(data: BlogMetadata) {
-  const tags: string[] = [];
-  for (const tag of data.tags) {
-    const hexColor = techStackHexColorMap.get(tag.toLowerCase());
-    tags.push(`
-      <span
-        style="color: #${hexColor ? hexColor : "F3F4F6"}; background-color: #${hexColor ? hexColor : "F3F4F6"}25;"
-        class="rounded-full p-1 px-3"
-        >${tag}
-      </span>`);
-  }
   return `
     <a
       href="${data.url}"
@@ -65,24 +55,12 @@ function renderBlogCard(data: BlogMetadata) {
         ${data.description}
       </p>
       <div class="flex flex-wrap gap-2">
-        ${tags.join("")}
+        ${renderTags(data.tags)}
       </div>
     </a>`;
 }
 
 function renderProjectCard(data: ProjectMetadata) {
-  let techStacks: string[] = [];
-
-  for (const techStack of data.techStack) {
-    const hexColor = techStackHexColorMap.get(techStack.toLowerCase());
-    techStacks.push(`
-      <span
-        style="color: #${hexColor}; background-color: #${hexColor}25;"
-        class="rounded-full p-1 px-3"
-        >${techStack}
-      </span>`);
-  }
-
   return `
     <a
       href="${data.url}"
@@ -99,7 +77,22 @@ function renderProjectCard(data: ProjectMetadata) {
         ${data.description}
       </p>
       <div class="flex flex-wrap gap-2">
-        ${techStacks.join("")}
+        ${renderTags(data.techStack)}
       </div>
     </a>`;
+}
+
+function renderTags(tags: string[]) {
+  let render: string = "";
+  for (const tag of tags) {
+    const hexColor = techStackHexColorMap.get(tag.toLowerCase());
+    render += `
+      <span
+        style="color: #${hexColor ? hexColor : "F3F4F6"}; background-color: #${hexColor ? hexColor : "F3F4F6"}25;"
+        class="rounded-full p-1 px-3"
+        >${tag}
+      </span>`;
+  }
+
+  return render;
 }
