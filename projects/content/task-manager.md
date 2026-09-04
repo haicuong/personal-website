@@ -13,7 +13,7 @@ coverImage: "/images/projects/task-manager/cover.jpg"
 A modern, lightweight task management web application built with TypeScript, Vite and Tailwind CSS. Organize your tasks efficiently with a clean, dark-themed interface.
 
 🔴 Live demo: [task-manager.haicuong.me](https://task-manager.haicuong.me/)\
-💻 Source code: [task-manager](https://github.com/haicuong/task-manager).
+💻 Source code: [@haicuong/task-manager](https://github.com/haicuong/task-manager).
 
 ## Features
 
