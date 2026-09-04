@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homepage | Hai Cuong</title>
     <script type="module" src="/src/scripts/main.ts"></script>
-    <script type="module" src="/src/scripts/blog.ts"></script>
-    <script type="module" src="/src/scripts/projects.ts"></script>
+    <script type="module" src="/src/scripts/cardRender.ts"></script>
   </head>
   <body>
     <site-header></site-header>
@@ -47,10 +46,7 @@
             >Projects &rarr;</a
           >
         </h1>
-        <div
-          id="projects-container"
-          class="flex gap-4 my-4 mx-2 overflow-auto md:justify-center"
-        ></div>
+        <div id="projects-container"></div>
       </section>
       <section>
         <h1 class="flex w-full items-center">
@@ -61,10 +57,7 @@
             >Blog &rarr;</a
           >
         </h1>
-        <div
-          id="post-container"
-          class="flex gap-4 my-4 mx-2 overflow-auto"
-        ></div>
+        <div id="blogs-container"></div>
       </section>
     </main>
     <site-footer></site-footer>

@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "hello-world",
+    "url": "/blog/posts/hello-world/",
+    "title": "Hello World: Testing the Markdown Engine",
+    "date": "2026-09-03",
+    "description": "A comprehensive test post verifying frontmatter, Shiki code highlighting, and Tailwind Typography.",
+    "tags": [
+      "test",
+      "vite",
+      "typescript",
+      "markdown"
+    ],
+    "coverImage": "/images/blog/hello-world/cover.jpg"
+  },
+  {
+    "slug": "redstone-automation",
+    "url": "/blog/posts/redstone-automation/",
+    "title": "Automating the Overworld: Redstone Basics",
+    "date": "2026-09-02",
+    "description": "A quick guide to building your first automated farm using basic Redstone mechanics and observers.",
+    "tags": [
+      "minecraft",
+      "redstone",
+      "tutorial",
+      "gaming"
+    ],
+    "coverImage": "/images/blog/redstone-automation/cover.jpg"
+  },
+  {
+    "slug": "ts-data-fetching",
+    "url": "/blog/posts/ts-data-fetching/",
+    "title": "Type-Safe Data Fetching in TypeScript",
+    "date": "2026-09-01",
+    "description": "Exploring how to strictly type standard browser fetch requests for a more robust frontend architecture.",
+    "tags": [
+      "typescript",
+      "webdev",
+      "javascript",
+      "frontend"
+    ],
+    "coverImage": "/images/blog/ts-data-fetching/cover.png"
+  }
+]

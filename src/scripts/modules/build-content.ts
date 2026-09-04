@@ -3,16 +3,24 @@ import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
 import { createHighlighter } from "shiki";
-import type { PostMetadata, BlogFrontmatterData } from "./types/blog-types";
+import type {
+  BaseMetadata,
+  BaseFrontmatterData,
+  BuildContentOptions,
+} from "../types";
 
 //MODULE, DO NOT EXPORT
 
-const CONTENT_DIR = path.resolve("blog/content");
-const TEMPLATE_PATH = path.resolve("blog/templates/post-template.html");
-const OUTPUT_POSTS_DIR = path.resolve("blog/posts");
-const INDEX_JSON_PATH = path.resolve("public/posts.json");
+// const CONTENT_DIR = path.resolve("projects/content");
+//TODO: create project template
+// const TEMPLATE_PATH = path.resolve("blog/templates/post-template.html");
+// const OUTPUT_POSTS_DIR = path.resolve("projects/posts");
+// const INDEX_JSON_PATH = path.resolve("public/projects.json");
 
-async function buildPosts(): Promise<void> {
+export async function buildContent<
+  TFrontmatter extends BaseFrontmatterData,
+  TMetadata extends BaseMetadata,
+>(options: BuildContentOptions<TFrontmatter, TMetadata>): Promise<void> {
   const highlighter = await createHighlighter({
     themes: ["github-dark"],
     langs: ["javascript", "typescript", "html", "css", "json", "bash"],
@@ -28,8 +36,24 @@ async function buildPosts(): Promise<void> {
           theme: "github-dark",
         });
       },
+      link({ href, title, text }) {
+        const isExternal =
+          href.startsWith("http://") || href.startsWith("https://");
+
+        const titleAttribute = title ? `title="${title}"` : "";
+        const securityAttributes = isExternal
+          ? 'target="_blank" rel="noopener noreferrer"'
+          : "";
+
+        return `<a href="${href}" ${titleAttribute} ${securityAttributes}>${text}</a>`;
+      },
     },
   });
+
+  const CONTENT_DIR = path.resolve(options.contentDir);
+  const TEMPLATE_PATH = path.resolve(options.templatePath);
+  const OUTPUT_POSTS_DIR = path.resolve(options.outputDir);
+  const INDEX_JSON_PATH = path.resolve(options.indexJsonPath);
 
   if (!fs.existsSync(TEMPLATE_PATH)) {
     console.error(`Template not found at: ${TEMPLATE_PATH}`);
@@ -46,14 +70,14 @@ async function buildPosts(): Promise<void> {
   const files = fs
     .readdirSync(CONTENT_DIR)
     .filter((file) => file.endsWith(".md"));
-  const metadataList: PostMetadata[] = [];
+  const metadataList: TMetadata[] = [];
 
   for (const file of files) {
     const slug = file.replace(/\.md$/, "");
     const rawContent = fs.readFileSync(path.join(CONTENT_DIR, file), "utf-8");
 
     const parsed = matter(rawContent);
-    const data = parsed.data as BlogFrontmatterData;
+    const data = parsed.data as TFrontmatter;
 
     const htmlContent = await marked.parse(parsed.content);
 
@@ -67,15 +91,19 @@ async function buildPosts(): Promise<void> {
     fs.mkdirSync(postDir, { recursive: true });
     fs.writeFileSync(path.join(postDir, "index.html"), finalHtml);
 
-    metadataList.push({
+    /* metadataList.push({
       slug,
-      url: `/blog/posts/${slug}/`,
+      url: `/projects/posts/${slug}/`,
       title: data.title || slug,
       date: data.date || "",
       description: data.description || "",
-      tags: data.tags || [],
+      techStack: data.techStack || [],
+      repoUrl: data.repoUrl || "",
+      liveUrl: data.liveUrl || "",
       coverImage: data.coverImage || "",
-    });
+    }); */
+
+    metadataList.push(options.toMetaData(slug, data));
   }
 
   metadataList.sort(
@@ -86,10 +114,8 @@ async function buildPosts(): Promise<void> {
   fs.writeFileSync(INDEX_JSON_PATH, JSON.stringify(metadataList, null, 2));
 
   console.log(
-    `Successfully compiled ${metadataList.length} post(s) and generated public/posts.json`,
+    `Successfully compiled ${metadataList.length} post(s) and generated ${options.indexJsonPath}`,
   );
 
   highlighter.dispose();
 }
-
-buildPosts().catch(console.error);
