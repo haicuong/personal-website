@@ -46,15 +46,9 @@ Content generation uses a shared `buildContent()` function that:
 ## TypeScript Configuration
 
 - **Target:** ES2023 with DOM library
-- **Module resolution:** `bundler` (Vite/TypeScript 5+ convention)
-- **Strict mode enabled:**
-  - `noUnusedLocals` — Flag unused variables
-  - `noUnusedParameters` — Flag unused parameters
-  - `erasableSyntaxOnly` — Ensure all syntax is removable
+- **Module resolution:** `bundler`
 - **Include:** `src/` directory
 - **Output:** Browser + Vite client types
-
-Unused variables/parameters should be removed. If necessary, suppress with `// @ts-expect-error`.
 
 ## Styling System
 
@@ -70,14 +64,6 @@ Unused variables/parameters should be removed. If necessary, suppress with `// @
 - Base layers: `body`, `main`, `site-header`, `site-footer`
 - Dark mode support via CSS `prefers-color-scheme`
 - All base styles use Tailwind utilities or semantic selectors
-
-### Best Practices
-
-- **Use Tailwind utilities directly** in HTML — avoid custom CSS classes
-- **Base layers only** for shared/repeated styles (exceptions: site-header, site-footer)
-- **Dark mode:** Use `dark:` prefix for dark variants (e.g., `dark:bg-gray-900`)
-- **Mobile-first:** No prefix for mobile, `md:` for medium screens and above
-- **Responsive breakpoints:** `sm:`, `md:`, `lg:`, `xl:` (Tailwind defaults)
 
 ### Linting
 
@@ -320,18 +306,7 @@ loadCards<T>(
 ): Promise<void>
 ```
 
-### Tech Stack Color Mapping
-
-```typescript
-const techStackHexColorMap = new Map<string, string>()
-  .set("html", "E34F26")
-  .set("tailwindcss", "38BDF8")
-  .set("typescript", "3178C6")
-  .set("vite", "646CFF")
-  .set("mpa", "FF5D01");
-```
-
-Add tech stack colors by extending this Map.
+Tech stack tag badge colors are defined in `src/scripts/card-render.ts`.
 
 ## TypeScript Types
 

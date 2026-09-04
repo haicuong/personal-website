@@ -4,14 +4,6 @@ A personal portfolio and digital garden showcasing software engineering projects
 
 **🌐 Live Website:** [haicuong.me](https://haicuong.me)
 
-## 🛠 Tech Stack
-
-- **Framework:** Vite (Multi-Page App / MPA)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS v4
-- **Content:** Markdown with YAML frontmatter
-- **Hosting:** GitHub Pages / Vercel
-
 ## ✨ Features
 
 - **Markdown-Driven Content** — Write posts and projects in Markdown; auto-generates static pages
@@ -20,6 +12,14 @@ A personal portfolio and digital garden showcasing software engineering projects
 - **Dark Mode** — Automatic light/dark mode with `prefers-color-scheme`
 - **Responsive Design** — Mobile-first with Tailwind CSS
 - **Production-Ready** — Built with Vite, typed with TypeScript, linted with Stylelint
+
+## 🛠 Tech Stack
+
+- **Framework:** Vite (Multi-Page App / MPA)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **Content:** Markdown with YAML frontmatter
+- **Hosting:** GitHub Pages / Vercel
 
 ## 🚀 Quick Start
 
@@ -116,12 +116,7 @@ Generated files are Git-ignored and recreated on each build.
 
 ## 🎨 Styling
 
-Uses **Tailwind CSS v4** with utility-first approach:
-
-- Add styles directly in HTML using Tailwind classes
-- Dark mode via `dark:` prefix (e.g., `dark:bg-gray-900`)
-- Responsive with `md:`, `lg:`, etc. prefixes
-- Run `npm run lint:css` before committing (no warnings allowed)
+Uses **Tailwind CSS v4**. CSS must pass `npm run lint:css` with zero warnings.
 
 ## 🛠 For Developers
 
