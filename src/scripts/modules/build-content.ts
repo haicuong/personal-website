@@ -11,12 +11,6 @@ import type {
 
 //MODULE, DO NOT EXPORT
 
-// const CONTENT_DIR = path.resolve("projects/content");
-//TODO: create project template
-// const TEMPLATE_PATH = path.resolve("blog/templates/post-template.html");
-// const OUTPUT_POSTS_DIR = path.resolve("projects/posts");
-// const INDEX_JSON_PATH = path.resolve("public/projects.json");
-
 export async function buildContent<
   TFrontmatter extends BaseFrontmatterData,
   TMetadata extends BaseMetadata,

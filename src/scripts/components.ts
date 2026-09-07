@@ -10,24 +10,37 @@ class SiteHeader extends HTMLElement {
         <span class="font-bold hidden md:inline">Hai Cuong</span>
       </div>
       <nav class="flex gap-2 justify-center items-center">
-        <a href="/"
-          class="p-3 rounded-lg transition-all md:active:scale-95 active:scale-90 bg-gray-300 dark:bg-[#343434] md:bg-transparent md:dark:bg-transparent active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
+        <a id="home" href="/"
+          class="p-3 rounded-lg transition-all md:hover:bg-gray-400 md:dark:hover:bg-[#454545] md:active:scale-95 active:scale-90 active:bg-gray-400 dark:active:bg-[#565656]"
         >
           Home
         </a>
-        <a href="/projects/"
-          class="p-3 rounded-lg transition-all md:active:scale-95 active:scale-90 bg-gray-300 dark:bg-[#343434] md:bg-transparent md:dark:bg-transparent active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
+        <a id="projects" href="/projects/"
+          class="p-3 rounded-lg transition-all md:hover:bg-gray-400 md:dark:hover:bg-[#454545] md:active:scale-95 active:scale-90 active:bg-gray-400 dark:active:bg-[#565656]"
         > 
           Projects
         </a>
-        <a href="/blog/"
-          class="p-3 rounded-lg transition-all md:active:scale-95 active:scale-90 bg-gray-300 dark:bg-[#343434] md:bg-transparent md:dark:bg-transparent active:bg-gray-400 dark:active:bg-[#565656] hover:bg-gray-300 dark:hover:bg-[#454545]"
+        <a id="blog" href="/blog/"
+          class="p-3 rounded-lg transition-all md:hover:bg-gray-400 md:dark:hover:bg-[#454545] md:active:scale-95 active:scale-90 active:bg-gray-400 dark:active:bg-[#565656]"
         >
           Blog
         </a>
       </nav>
       <div class="justify-self-end invisible"></div>
     `;
+
+    const additionClassesCurrentPage = " bg-gray-300 dark:bg-[#343434]";
+
+    if (window.location.pathname.startsWith("/blog")) {
+      const blogHTML = this.querySelector("#blog");
+      if (blogHTML) blogHTML.classList += additionClassesCurrentPage;
+    } else if (window.location.pathname.startsWith("/projects")) {
+      const projectsHTML = this.querySelector("#projects");
+      if (projectsHTML) projectsHTML.classList += additionClassesCurrentPage;
+    } else {
+      const homeHTML = this.querySelector("#home");
+      if (homeHTML) homeHTML.classList += additionClassesCurrentPage;
+    }
   }
 }
 
