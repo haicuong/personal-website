@@ -15,10 +15,12 @@ export interface BaseFrontmatterData {
 }
 
 export interface BlogMetadata extends BaseMetadata {
+  lastEditDate: string;
   tags: string[];
 }
 
 export interface BlogFrontmatterData extends BaseFrontmatterData {
+  lastEditDate?: string;
   tags?: string[];
 }
 

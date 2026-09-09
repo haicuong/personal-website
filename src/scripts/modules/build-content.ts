@@ -85,18 +85,6 @@ export async function buildContent<
     fs.mkdirSync(postDir, { recursive: true });
     fs.writeFileSync(path.join(postDir, "index.html"), finalHtml);
 
-    /* metadataList.push({
-      slug,
-      url: `/projects/posts/${slug}/`,
-      title: data.title || slug,
-      date: data.date || "",
-      description: data.description || "",
-      techStack: data.techStack || [],
-      repoUrl: data.repoUrl || "",
-      liveUrl: data.liveUrl || "",
-      coverImage: data.coverImage || "",
-    }); */
-
     metadataList.push(options.toMetaData(slug, data));
   }
 
