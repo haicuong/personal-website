@@ -100,6 +100,7 @@ export async function buildContent<
     metadataList.push(options.toMetaData(slug, data));
   }
 
+  //Default sort by date, for recent posts
   metadataList.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
