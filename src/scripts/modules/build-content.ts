@@ -17,7 +17,16 @@ export async function buildContent<
 >(options: BuildContentOptions<TFrontmatter, TMetadata>): Promise<void> {
   const highlighter = await createHighlighter({
     themes: ["github-dark", "github-light"],
-    langs: ["javascript", "typescript", "html", "css", "json", "bash"],
+    langs: [
+      "javascript",
+      "typescript",
+      "html",
+      "css",
+      "json",
+      "bash",
+      "yaml",
+      "markdown",
+    ],
   });
 
   marked.use({
