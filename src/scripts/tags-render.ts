@@ -1,18 +1,19 @@
-const tagsHexColorMap = new Map<string, string>()
-  .set("html", "E34F26")
-  .set("tailwindcss", "38BDF8")
-  .set("typescript", "3178C6")
-  .set("vite", "646CFF")
-  .set("mpa", "FF5D01")
-  .set("vercel", "0070f3")
-  .set("javascript", "D4A017")
-  .set("css", "1572B6")
-  .set("technical note", "60A5FA")
-  .set("debug", "A855F7")
-  .set("webdev", "14B8A6")
-  .set("frontend", "EC4899")
-  .set("test", "10B981")
-  .set("cloudflare", "F48120");
+const tagsHexColorMap = new Map<string, string>([
+  ["html", "E34F26"],
+  ["tailwindcss", "38BDF8"],
+  ["typescript", "3178C6"],
+  ["vite", "646CFF"],
+  ["mpa", "FF5D01"],
+  ["vercel", "0070f3"],
+  ["javascript", "D4A017"],
+  ["css", "1572B6"],
+  ["technical note", "60A5FA"],
+  ["debug", "A855F7"],
+  ["webdev", "14B8A6"],
+  ["frontend", "EC4899"],
+  ["test", "10B981"],
+  ["cloudflare", "F48120"],
+]);
 
 export function renderTags(tags: string[]) {
   let render: string = "";

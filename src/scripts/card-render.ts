@@ -23,13 +23,12 @@ async function loadCards<T>(
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    containerHTML.classList = "flex gap-4 my-4 mx-2 overflow-auto";
-
     const items = (await response.json()) as T[];
     if (limit && items.length > limit) {
       items.splice(limit);
     }
 
+    containerHTML.classList = "flex gap-4 my-4 mx-2 overflow-auto";
     containerHTML.innerHTML = items.map(renderCard).join("");
 
     return items;
