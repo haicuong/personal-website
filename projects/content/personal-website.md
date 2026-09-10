@@ -5,7 +5,7 @@ description: "(This website) Showcase my software engineering projects, technica
 techStack: ["HTML", "TailwindCSS", "Typescript", "Vite", "MPA"]
 repoUrl: "https://github.com/haicuong/personal-website"
 liveUrl: ""
-coverImage: "/images/projects/personal-website/cover.jpg"
+coverImage: "/images/projects/personal-website/cover.webp"
 ---
 
 # Nguyen Hai Cuong's Digital Garden & Portfolio
