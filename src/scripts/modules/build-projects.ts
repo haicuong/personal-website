@@ -3,7 +3,7 @@ import type { ProjectFrontmatterData, ProjectMetadata } from "../types";
 
 buildContent<ProjectFrontmatterData, ProjectMetadata>({
   contentDir: "projects/content",
-  templatePath: "blog/templates/post-template.html",
+  templatePath: "projects/templates/project-template.html",
   outputDir: "projects/posts",
   indexJsonPath: "public/projects.json",
   toMetaData: (slug: string, data: ProjectFrontmatterData) => {
@@ -19,4 +19,12 @@ buildContent<ProjectFrontmatterData, ProjectMetadata>({
       coverImage: data.coverImage || "",
     };
   },
+  templateValues: (data: ProjectFrontmatterData) => ({
+    LIVE_URL: data.liveUrl
+      ? `<a href="${data.liveUrl}" target="_blank" rel="noopener noreferrer">${data.liveUrl.replace("https://", "")}</a>`
+      : "Updating...",
+    REPO_URL: data.repoUrl
+      ? `<a href="${data.repoUrl}" target="_blank" rel="noopener noreferrer">${data.repoUrl.replace("https://github.com/", "@")}</a>`
+      : "Updating...",
+  }),
 }).catch(console.error);

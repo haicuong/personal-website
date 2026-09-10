@@ -1,19 +1,12 @@
 ---
-title: "Personal Website"
+title: "Personal Website: My Digital Garden & Portfolio"
 date: "2026-09-03"
 description: "(This website) Showcase my software engineering projects, technical notes and controversial psychology through opposing lenses."
 techStack: ["HTML", "TailwindCSS", "Typescript", "Vite", "MPA"]
 repoUrl: "https://github.com/haicuong/personal-website"
-liveUrl: ""
+liveUrl: "https://haicuong.me"
 coverImage: "/images/projects/personal-website/cover.webp"
 ---
-
-# Nguyen Hai Cuong's Digital Garden & Portfolio
-
-Showcase my software engineering projects, technical notes and controversial psychology through opposing lenses.
-
-Live website: [haicuong.me](https://haicuong.me/)\
-Source code: [@haicuong/personal-website](https://github.com/haicuong/personal-website)
 
 ## 🛠 Tech Stack
 

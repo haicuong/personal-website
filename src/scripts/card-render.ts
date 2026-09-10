@@ -56,7 +56,7 @@ function renderBlogCard(data: BlogMetadata) {
       href="${data.url}"
       class="flex flex-col md:hover:scale-98 min-w-[60vw] md:min-w-75 md:max-w-[30vw] border rounded-2xl p-4 transition-all md:dark:hover:bg-[#202020] md:hover:bg-gray-100 active:bg-gray-100 dark:active:bg-[#1c1c1c] active:scale-97 md:active:scale-96"
     >
-      <h3 class="text-lg line-clamp-2 font-bold">${data.title}</h3>
+      <h3 class="text-lg line-clamp-2 h-[2lh] font-bold">${data.title}</h3>
       <span class="text-sm text-gray-400">${data.date ? new Date(data.date).toLocaleDateString() : "Date not found"}</span>
       ${
         data.coverImage
@@ -83,7 +83,7 @@ function renderProjectCard(data: ProjectMetadata) {
       href="${data.url}"
       class="flex md:hover:bg-gray-100 md:dark:hover:bg-[#202020] active:bg-gray-100 dark:active:bg-[#1c1c1c] flex-col min-w-[60vw] md:min-w-75 md:max-w-[30vw] border rounded-2xl p-4 transition-all active:scale-97 md:hover:scale-98 md:active:scale-96"
     >
-      <h3 class="text-lg line-clamp-2 font-bold">${data.title}</h3>
+      <h3 class="text-lg line-clamp-2 h-[2lh] font-bold">${data.title}</h3>
       <span class="text-sm text-gray-400">${data.date ? new Date(data.date).toLocaleDateString() : "Date not found"}</span>
       <img
         class="object-cover aspect-video my-2"

@@ -1,19 +1,12 @@
 ---
-title: "Task Manager V2"
+title: "Task Manager"
 date: "2026-09-03"
 description: "A zero-framework task manager built with strict TypeScript, ES modules, and custom event handling."
 techStack: ["HTML", "TailwindCSS", "Typescript", "Vite"]
 repoUrl: "https://github.com/haicuong/task-manager"
-liveUrl: ""
+liveUrl: "https://task-manager.haicuong.me"
 coverImage: "/images/projects/task-manager/cover.webp"
 ---
-
-# Task Manager
-
-A modern, lightweight task management web application built with TypeScript, Vite and Tailwind CSS. Organize your tasks efficiently with a clean, dark-themed interface.
-
-🔴 Live demo: [task-manager.haicuong.me](https://task-manager.haicuong.me/)\
-💻 Source code: [@haicuong/task-manager](https://github.com/haicuong/task-manager).
 
 ## Features
 

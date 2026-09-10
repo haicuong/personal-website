@@ -75,11 +75,17 @@ export async function buildContent<
 
     const htmlContent = await marked.parse(parsed.content);
 
-    const finalHtml = template
+    let finalHtml = template
       .replaceAll("{{COVER_IMAGE_URL}}", data.coverImage || "")
       .replaceAll("{{TITLE}}", data.title || "Untitled Post")
       .replaceAll("{{DESCRIPTION}}", data.description || "")
       .replaceAll("{{CONTENT}}", htmlContent);
+
+    const templateValues = options.templateValues?.(data) || {};
+
+    for (const [key, value] of Object.entries(templateValues)) {
+      finalHtml = finalHtml.replaceAll(`{{${key}}}`, value);
+    }
 
     const postDir = path.join(OUTPUT_POSTS_DIR, slug);
     fs.mkdirSync(postDir, { recursive: true });

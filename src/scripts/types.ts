@@ -45,4 +45,5 @@ export interface BuildContentOptions<
   outputDir: string;
   indexJsonPath: string;
   toMetaData: (slug: string, data: TFrontmatter) => TMetadata;
+  templateValues?: (data: TFrontmatter) => Record<string, string>;
 }
