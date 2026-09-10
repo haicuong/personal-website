@@ -3,7 +3,7 @@ title: "How I Debugged an Unstyled Production Page (404 CSS)"
 date: "2026-09-09"
 description: "Step by step how I debug my page when it's suddenly unstyled"
 tags: ["Technical Note", "Debug", "Vercel"]
-coverImage: "/images/blog/unstyled-production-page/cover.jpg"
+coverImage: "/images/blog/unstyled-production-page/cover.webp"
 ---
 
 # How I Debugged an Unstyled Production Page
@@ -16,7 +16,7 @@ stayed that way no matter how many more times I refreshed.
 Opening DevTools (F12), the console showed errors: the page couldn't fetch
 its renamed script and CSS files.
 
-![404 errors for hashed CSS/JS files](/images/blog/unstyled-production-page/404-errors.jpg)
+![404 errors for hashed CSS/JS files](/images/blog/unstyled-production-page/404-errors.webp)
 
 ## Debugging Steps
 
@@ -37,7 +37,7 @@ its renamed script and CSS files.
    machine, at that moment — not a server, DNS, or CDN problem.
 
 (Illustration purpose only)
-![Side-by-side incognito vs. regular browser showing the difference](/images/blog/unstyled-production-page/incognito-vs-regular-browser.png)
+![Side-by-side incognito vs. regular browser showing the difference](/images/blog/unstyled-production-page/incognito-vs-regular-browser.webp)
 
 5. **Found the fix: hard refresh.** `Ctrl+Shift+R` forces the browser to
    bypass its cache for that load and refetch every resource fresh from
@@ -54,7 +54,7 @@ You can check whether your own page is configured for revalidation via:
 entry in the Name column) → Headers → Response Headers → Cache-Control`.
 If you see `must-revalidate`, your configuration is correct.
 
-![Cache-Control header showing must-revalidate](/images/blog/unstyled-production-page/cache-control-header.png)
+![Cache-Control header showing must-revalidate](/images/blog/unstyled-production-page/cache-control-header.webp)
 
 Vite generates asset filenames using a content hash — a hash derived from
 the file's own content, so the filename only changes when the content

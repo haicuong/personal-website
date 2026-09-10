@@ -3,7 +3,7 @@ title: "Automating the Overworld: Redstone Basics"
 date: "2026-09-02"
 description: "A quick guide to building your first automated farm using basic Redstone mechanics and observers."
 tags: ["Minecraft", "Redstone", "Tutorial", "Gaming"]
-coverImage: "/images/blog/redstone-automation/cover.jpg"
+coverImage: "/images/blog/redstone-automation/cover.webp"
 ---
 
 # Automating the Overworld: Redstone Basics

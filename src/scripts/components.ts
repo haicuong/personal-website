@@ -4,7 +4,7 @@ class SiteHeader extends HTMLElement {
       <div class="flex h-10 gap-3 items-center justify-self-start">
         <img
           class="rounded-full h-full w-auto aspect-square object-cover"
-          src="/profile-picture.jpg"
+          src="/profile-picture.webp"
           alt="Profile picture"
         />
         <span class="font-bold hidden md:inline">Hai Cuong</span>

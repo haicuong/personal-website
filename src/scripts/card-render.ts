@@ -4,10 +4,10 @@ const projectsContainerHTML = document.querySelector("#projects-container");
 const blogContainerHTML = document.querySelector("#blogs-container");
 
 if (projectsContainerHTML && projectsContainerHTML instanceof HTMLElement)
-  loadCards("/projects.json", renderProjectCard, projectsContainerHTML, 3);
+  loadCards("/projects.json", renderProjectCard, projectsContainerHTML);
 
 if (blogContainerHTML && blogContainerHTML instanceof HTMLElement)
-  loadCards("/blogs.json", renderBlogCard, blogContainerHTML, 3);
+  loadCards("/blogs.json", renderBlogCard, blogContainerHTML);
 
 const techStackHexColorMap = new Map<string, string>()
   .set("html", "E34F26")
