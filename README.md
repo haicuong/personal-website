@@ -8,6 +8,7 @@ A personal portfolio and digital garden showcasing my software engineering proje
 
 - **Markdown-Driven Content** — Write posts and projects in Markdown; auto-generates static pages
 - **Blog & Projects** — Two separate sections with metadata-driven card layouts
+- **Post Comments** — Blog and project posts include Giscus-powered comments
 - **Web Components** — Reusable header and footer on all pages
 - **Dark Mode** — Automatic light/dark mode with `prefers-color-scheme`
 - **Responsive Design** — Mobile-first with Tailwind CSS

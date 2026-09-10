@@ -95,6 +95,13 @@ customElements.define('site-header', SiteHeader);
 - Available immediately on every page
 - Do NOT re-import or re-register in individual pages
 
+### Blog Comments
+
+Blog and project posts use Giscus for comments. The Giscus client is configured
+directly in `blog/templates/blog-template.html` and
+`projects/templates/project-template.html`, so generated post pages include the
+comments section automatically.
+
 ### Patterns
 
 ```html

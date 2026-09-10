@@ -42,6 +42,8 @@
 - `projects/index.html`: project index; loads `public/projects.json`.
 - `blog/templates/blog-template.html`: blog post page template.
 - `projects/templates/project-template.html`: project page template.
+- Blog and project post comments use the Giscus client configured in
+	`blog/templates/blog-template.html` and `projects/templates/project-template.html`.
 - `src/styles/main.css`: Tailwind CSS v4 imports and shared styles.
 - `src/scripts/types.ts`: metadata and frontmatter interfaces.
 - `public/images/blog/`: blog assets.

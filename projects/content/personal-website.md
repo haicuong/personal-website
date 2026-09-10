@@ -1,7 +1,7 @@
 ---
 title: "Personal Website: My Digital Garden & Portfolio"
 date: "2026-09-03"
-description: "(This website) A personal portfolio and digital garden showcasing my software engineering projects, technical notes and controversial psychology through opposing lenses."
+description: "A personal portfolio and digital garden showcasing my software engineering projects, technical notes and controversial psychology through opposing lenses."
 techStack: ["HTML", "TailwindCSS", "Typescript", "Vite", "MPA"]
 repoUrl: "https://github.com/haicuong/personal-website"
 liveUrl: "https://haicuong.me"
@@ -12,6 +12,7 @@ coverImage: "/images/projects/personal-website/cover.webp"
 
 - **Markdown-Driven Content** — Write posts and projects in Markdown; auto-generates static pages
 - **Blog & Projects** — Two separate sections with metadata-driven card layouts
+- **Post Comments** — Blog and project posts include Giscus-powered comments
 - **Web Components** — Reusable header and footer on all pages
 - **Dark Mode** — Automatic light/dark mode with `prefers-color-scheme`
 - **Responsive Design** — Mobile-first with Tailwind CSS
@@ -127,7 +128,7 @@ Uses **Tailwind CSS v4**. CSS must pass `npm run lint:css` with zero warnings.
 
 ## 🛠 For Developers
 
-For detailed development conventions, TypeScript setup, Web Components patterns, build system details, and common issues, see [DEVELOPMENT.md](https://github.com/haicuong/personal-website/blob/main/DEVELOPMENT.md).
+For detailed development conventions, TypeScript setup, Web Components patterns, build system details, and common issues, see [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## 🚀 Deployment
 
