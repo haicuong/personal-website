@@ -79,7 +79,11 @@ export async function buildContent<
       .replaceAll("{{COVER_IMAGE_URL}}", data.coverImage || "")
       .replaceAll("{{TITLE}}", data.title || "Untitled Post")
       .replaceAll("{{DESCRIPTION}}", data.description || "")
-      .replaceAll("{{CONTENT}}", htmlContent);
+      .replaceAll("{{CONTENT}}", htmlContent)
+      .replaceAll(
+        "{{CREATED_DATE}}",
+        data.date ? new Date(data.date).toLocaleDateString() : "",
+      );
 
     const templateValues = options.templateValues?.(data) || {};
 

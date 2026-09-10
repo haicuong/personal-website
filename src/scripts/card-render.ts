@@ -1,3 +1,4 @@
+import { renderTags } from "./tags-render";
 import type { BlogMetadata, ProjectMetadata } from "./types";
 
 const projectsContainerHTML = document.querySelector("#projects-container");
@@ -9,27 +10,12 @@ if (projectsContainerHTML && projectsContainerHTML instanceof HTMLElement)
 if (blogContainerHTML && blogContainerHTML instanceof HTMLElement)
   loadCards("/blogs.json", renderBlogCard, blogContainerHTML);
 
-const techStackHexColorMap = new Map<string, string>()
-  .set("html", "E34F26")
-  .set("tailwindcss", "38BDF8")
-  .set("typescript", "3178C6")
-  .set("vite", "646CFF")
-  .set("mpa", "FF5D01")
-  .set("vercel", "0070f3")
-  .set("javascript", "D4A017")
-  .set("css", "1572B6")
-  .set("technical note", "60A5FA")
-  .set("debug", "A855F7")
-  .set("webdev", "14B8A6")
-  .set("frontend", "EC4899")
-  .set("test", "10B981");
-
 async function loadCards<T>(
   url: string,
   renderCard: (data: T) => string,
   containerHTML: HTMLElement,
   limit?: number,
-): Promise<void> {
+): Promise<T[]> {
   try {
     const response = await fetch(url);
 
@@ -45,8 +31,11 @@ async function loadCards<T>(
     }
 
     containerHTML.innerHTML = items.map(renderCard).join("");
+
+    return items;
   } catch (error) {
     console.error(`Failed to load posts: ${error}`);
+    return [];
   }
 }
 
@@ -71,7 +60,7 @@ function renderBlogCard(data: BlogMetadata) {
       <p class="text-base flex-1 line-clamp-3 my-4">
         ${data.description}
       </p>
-      <div class="flex flex-wrap gap-2">
+      <div class="flex flex-wrap gap-2 max-h-18 overflow-hidden">
         ${renderTags(data.tags)}
       </div>
     </a>`;
@@ -93,23 +82,9 @@ function renderProjectCard(data: ProjectMetadata) {
       <p class="text-base flex-1 line-clamp-3 my-4">
         ${data.description}
       </p>
-      <div class="flex flex-wrap gap-2">
+      <div class="flex flex-wrap gap-2 max-h-18 overflow-hidden">
         ${renderTags(data.techStack)}
       </div>
     </a>`;
 }
-
-function renderTags(tags: string[]) {
-  let render: string = "";
-  for (const tag of tags) {
-    const hexColor = techStackHexColorMap.get(tag.toLowerCase());
-    render += `
-      <span
-        style="color: ${hexColor ? `#${hexColor}` : "light-dark(#000000, #F3F4F6)"}; background-color: ${hexColor ? `#${hexColor}25` : "light-dark(#00000015, #F3F4F625)"};"
-        class="rounded-full p-1 px-3"
-        >${tag}
-      </span>`;
-  }
-
-  return render;
-}
+export { renderTags };

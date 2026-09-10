@@ -20,7 +20,7 @@ export interface BlogMetadata extends BaseMetadata {
 }
 
 export interface BlogFrontmatterData extends BaseFrontmatterData {
-  lastEditDate?: string;
+  lastEditedDate?: string;
   tags?: string[];
 }
 

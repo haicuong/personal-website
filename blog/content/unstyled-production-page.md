@@ -2,11 +2,9 @@
 title: "How I Debugged an Unstyled Production Page (404 CSS)"
 date: "2026-09-09"
 description: "Step by step how I debug my page when it's suddenly unstyled"
-tags: ["Technical Note", "Debug", "Vercel"]
+tags: ["Technical Note", "Debug", "Vercel", "Cloudflare"]
 coverImage: "/images/blog/unstyled-production-page/cover.webp"
 ---
-
-# How I Debugged an Unstyled Production Page
 
 Two days ago, I pushed new code to my personal site project. Shortly after,
 I opened `haicuong.me` and refreshed repeatedly with `Ctrl+R`. After about

@@ -1,5 +1,6 @@
 import { buildContent } from "./build-content";
 import type { ProjectFrontmatterData, ProjectMetadata } from "../types";
+import { renderTags } from "../tags-render";
 
 buildContent<ProjectFrontmatterData, ProjectMetadata>({
   contentDir: "projects/content",
@@ -26,5 +27,6 @@ buildContent<ProjectFrontmatterData, ProjectMetadata>({
     REPO_URL: data.repoUrl
       ? `<a href="${data.repoUrl}" target="_blank" rel="noopener noreferrer">${data.repoUrl.replace("https://github.com/", "@")}</a>`
       : "Updating...",
+    TECHSTACKS: data.techStack ? renderTags(data.techStack) : "",
   }),
 }).catch(console.error);

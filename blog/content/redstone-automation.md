@@ -6,10 +6,6 @@ tags: ["Minecraft", "Redstone", "Tutorial", "Gaming"]
 coverImage: "/images/blog/redstone-automation/cover.webp"
 ---
 
-# Automating the Overworld: Redstone Basics
-
-(This post is AI generated to test Blog page)
-
 Welcome to this tutorial on automated machinery. In this post, we will cover the foundational mechanics required to build a fully autonomous sugarcane farm using **Observers**, **Pistons**, and **Redstone Dust**. 
 
 ---

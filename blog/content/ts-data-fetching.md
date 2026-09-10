@@ -6,10 +6,6 @@ tags: ["Typescript", "Webdev", "Javascript", "Frontend"]
 coverImage: "/images/blog/ts-data-fetching/cover.webp"
 ---
 
-# Type-Safe Data Fetching in TypeScript
-
-(This post is AI generated to test Blog page)
-
 When building modern web applications, interacting with external APIs is inevitable. While the native `fetch` API is incredibly powerful, it defaults to returning `any` when parsing JSON. This completely defeats the purpose of using a strictly typed language.
 
 ---

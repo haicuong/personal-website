@@ -6,10 +6,6 @@ tags: ["Test", "Vite", "Typescript", "Markdown"]
 coverImage: "/images/blog/hello-world/cover.webp"
 ---
 
-# Hello World: Testing the Markdown Engine
-
-(This post is AI generated to test Blog page)
-
 Welcome to the initial test post for the blog system. This article contains various Markdown elements to verify that **frontmatter metadata**, **inline formatting**, **lists**, **blockquotes**, and **Shiki code blocks** render as expected.
 
 ---
