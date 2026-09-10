@@ -14,7 +14,15 @@ const techStackHexColorMap = new Map<string, string>()
   .set("tailwindcss", "38BDF8")
   .set("typescript", "3178C6")
   .set("vite", "646CFF")
-  .set("mpa", "FF5D01");
+  .set("mpa", "FF5D01")
+  .set("vercel", "0070f3")
+  .set("javascript", "D4A017")
+  .set("css", "1572B6")
+  .set("technical note", "60A5FA")
+  .set("debug", "A855F7")
+  .set("webdev", "14B8A6")
+  .set("frontend", "EC4899")
+  .set("test", "10B981");
 
 async function loadCards<T>(
   url: string,
@@ -60,7 +68,7 @@ function renderBlogCard(data: BlogMetadata) {
             />`
           : ""
       }
-      <p class="text-base line-clamp-3 my-4">
+      <p class="text-base flex-1 line-clamp-3 my-4">
         ${data.description}
       </p>
       <div class="flex flex-wrap gap-2">
@@ -82,7 +90,7 @@ function renderProjectCard(data: ProjectMetadata) {
         src="${data.coverImage}"
         alt="Cover image"
       />
-      <p class="text-base line-clamp-3 my-4">
+      <p class="text-base flex-1 line-clamp-3 my-4">
         ${data.description}
       </p>
       <div class="flex flex-wrap gap-2">
