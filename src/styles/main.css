@@ -5,6 +5,17 @@
   color-scheme: light dark;
 }
 
+.shiki,
+.shiki span {
+  color: light-dark(var(--shiki-light), var(--shiki-dark));
+  background-color: light-dark(#f6f8fa, var(--shiki-dark-bg)) !important;
+}
+
+.shiki {
+  border: 1px solid light-dark(#e5e7eb, #30363d);
+  border-radius: 0.5rem;
+}
+
 @layer base {
   body {
     @apply bg-white flex relative dark:text-white flex-col min-h-screen dark:bg-[#121212] border-black dark:border-white;

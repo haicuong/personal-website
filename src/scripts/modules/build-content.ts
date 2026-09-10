@@ -16,7 +16,7 @@ export async function buildContent<
   TMetadata extends BaseMetadata,
 >(options: BuildContentOptions<TFrontmatter, TMetadata>): Promise<void> {
   const highlighter = await createHighlighter({
-    themes: ["github-dark"],
+    themes: ["github-dark", "github-light"],
     langs: ["javascript", "typescript", "html", "css", "json", "bash"],
   });
 
@@ -27,7 +27,11 @@ export async function buildContent<
         const validLang = lang && loadedLangs.includes(lang) ? lang : "text";
         return highlighter.codeToHtml(text, {
           lang: validLang,
-          theme: "github-dark",
+          themes: {
+            light: "github-light",
+            dark: "github-dark",
+          },
+          defaultColor: false,
         });
       },
       link({ href, title, text }) {
