@@ -13,7 +13,7 @@ buildContent<BlogFrontmatterData, BlogMetadata>({
       url: `/blog/posts/${slug}/`,
       title: data.title || slug,
       date: data.date || "",
-      lastEditDate: data.lastEditedDate || data.date || "",
+      lastEditedDate: data.lastEditedDate || data.date || "",
       description: data.description || "",
       tags: data.tags || [],
       coverImage: data.coverImage || "",

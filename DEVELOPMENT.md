@@ -5,7 +5,7 @@ This guide covers development conventions, build system details, and contributio
 ## Development Setup
 
 ### Prerequisites
-- Node.js 18+ (for TypeScript/Vite)
+- Node.js 20.19+ or 22.12+ (required by Vite 8)
 - npm or yarn
 
 ### Installation
@@ -29,8 +29,8 @@ npm install
 
 ```
 npm run build:
-  1. tsx build-projects.ts     → Generate projects/posts/ + projects.json
-  2. tsx build-blog.ts          → Generate blog/posts/ + blogs.json
+  1. tsx src/scripts/modules/build-projects.ts → Generate projects/posts/ + projects.json
+  2. tsx src/scripts/modules/build-blog.ts     → Generate blog/posts/ + blogs.json
   3. npm run lint:css           → Stylelint check (zero warnings)
   4. tsc                         → TypeScript type checking
   5. vite build                  → Vite bundling and optimization
@@ -113,7 +113,7 @@ src/
   scripts/
     main.ts        — Loaded on all pages (imports components)
     components.ts  — Web Component definitions
-    cardRender.ts  — Client-side JSON loading and card rendering
+    card-render.ts  — Client-side JSON loading and card rendering
     types.ts       — TypeScript interfaces
     modules/
       build-blog.ts       — Blog content generator
@@ -125,10 +125,12 @@ blog/
   content/         — Markdown source (*.md)
   posts/           — Generated HTML (Git-ignored)
   templates/
-    post-template.html  — HTML template for posts
+    blog-template.html  — HTML template for blog posts
 projects/
   content/         — Markdown source (*.md)
   posts/           — Generated HTML (Git-ignored)
+  templates/
+    project-template.html — HTML template for projects
 public/
   blogs.json       — Generated blog metadata (Git-ignored)
   projects.json    — Generated project metadata (Git-ignored)
@@ -162,7 +164,7 @@ The `buildContent()` function:
 ```typescript
 buildContent<BlogFrontmatterData, BlogMetadata>({
   contentDir: "blog/content",
-  templatePath: "blog/templates/post-template.html",
+  templatePath: "blog/templates/blog-template.html",
   outputDir: "blog/posts",
   indexJsonPath: "public/blogs.json",
   toMetaData: (slug, data) => ({
@@ -170,6 +172,7 @@ buildContent<BlogFrontmatterData, BlogMetadata>({
     url: `/blog/posts/${slug}/`,
     title: data.title || slug,
     date: data.date || "",
+    lastEditedDate: data.lastEditedDate || data.date || "",
     description: data.description || "",
     tags: data.tags || [],
     coverImage: data.coverImage || "",
@@ -182,6 +185,7 @@ buildContent<BlogFrontmatterData, BlogMetadata>({
 - `url` — Full post URL path
 - `title` — Post title
 - `date` — Publication date (YYYY-MM-DD)
+- `lastEditedDate` — Latest edit date; uses `date` when omitted
 - `description` — Short summary
 - `tags` — Array of tag strings
 - `coverImage` — Path to cover image
@@ -192,9 +196,10 @@ buildContent<BlogFrontmatterData, BlogMetadata>({
 ---
 title: "My Blog Post"
 date: "2026-01-15"
+lastEditedDate: "2026-01-20"
 description: "A concise summary"
 tags: ["typescript", "web-dev"]
-coverImage: "images/blog/my-post/cover.jpg"
+coverImage: "/images/blog/my-post/cover.jpg"
 ---
 ```
 
@@ -236,7 +241,7 @@ description: "What this project does"
 techStack: ["react", "typescript", "tailwindcss"]
 repoUrl: "https://github.com/user/repo"
 liveUrl: "https://project.example.com"
-coverImage: "images/projects/my-project/cover.jpg"
+coverImage: "/images/projects/my-project/cover.jpg"
 ---
 ```
 
@@ -319,14 +324,16 @@ Core interfaces:
 interface BlogFrontmatterData {
   title?: string;
   date?: string;
+  lastEditedDate?: string;
   description?: string;
   tags?: string[];
   coverImage?: string;
 }
 
-interface BlogMetadata extends BlogFrontmatterData {
+interface BlogMetadata extends BaseMetadata {
   slug: string;
   url: string;
+  lastEditedDate: string;
 }
 
 // Project
@@ -340,7 +347,7 @@ interface ProjectFrontmatterData {
   coverImage?: string;
 }
 
-interface ProjectMetadata extends ProjectFrontmatterData {
+interface ProjectMetadata extends BaseMetadata {
   slug: string;
   url: string;
 }

@@ -13,8 +13,8 @@
 
 `npm run build` must run in this order:
 
-1. Generate projects: `tsx build-projects.ts` -> `projects/posts/` and `public/projects.json`.
-2. Generate blog: `tsx build-blog.ts` -> `blog/posts/` and `public/blogs.json`.
+1. Generate projects: `tsx src/scripts/modules/build-projects.ts` -> `projects/posts/` and `public/projects.json`.
+2. Generate blog: `tsx src/scripts/modules/build-blog.ts` -> `blog/posts/` and `public/blogs.json`.
 3. Run CSS lint: `npm run lint:css`.
 4. Run TypeScript checking: `tsc`.
 5. Bundle with Vite: `vite build`.
@@ -40,7 +40,8 @@
 - `index.html`: home page.
 - `blog/index.html`: blog index; loads `public/blogs.json`.
 - `projects/index.html`: project index; loads `public/projects.json`.
-- `blog/templates/post-template.html`: generated post/project page template.
+- `blog/templates/blog-template.html`: blog post page template.
+- `projects/templates/project-template.html`: project page template.
 - `src/styles/main.css`: Tailwind CSS v4 imports and shared styles.
 - `src/scripts/types.ts`: metadata and frontmatter interfaces.
 - `public/images/blog/`: blog assets.
@@ -48,7 +49,12 @@
 
 ## Content Rules
 
-- Markdown frontmatter supplies title, date, description, cover image, and tags or project links/tech stack.
+- Add blog posts as Markdown files in `blog/content/` and projects as Markdown files in `projects/content/`.
+- Blog frontmatter fields: `title`, `date`, optional `lastEditedDate`, `description`, `tags`, and `coverImage`.
+- Project frontmatter fields: `title`, `date`, `description`, `techStack`, `repoUrl`, `liveUrl`, and `coverImage`.
+- Use ISO dates (`YYYY-MM-DD`) and root-relative image paths such as `/images/blog/post/cover.webp`.
+- `lastEditedDate` is optional and falls back to `date` when omitted.
+- Run `npm run dev` or `npm run build` after adding content so the generated page and metadata are refreshed.
 - Supported Shiki languages: `javascript`, `typescript`, `html`, `css`, `json`, `bash`.
 - Slugs use kebab-case and map to `/blog/posts/<slug>/` or `/projects/posts/<slug>/`.
 - Add pages as `your-page/index.html` with `/src/styles/main.css` and `/src/scripts/main.ts`; Vite discovers them automatically.

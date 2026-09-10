@@ -1,6 +1,6 @@
 # Nguyen Hai Cuong's Digital Garden & Portfolio
 
-A personal portfolio and digital garden showcasing software engineering projects and technical notes.
+A personal portfolio and digital garden showcasing my software engineering projects, technical notes and controversial psychology through opposing lenses.
 
 **🌐 Live Website:** [haicuong.me](https://haicuong.me)
 
@@ -49,9 +49,10 @@ Create a file in `blog/content/` (e.g., `my-post.md`):
 ---
 title: "My Blog Post"
 date: "2026-01-15"
+lastEditedDate: "2026-01-20"
 description: "A short summary"
 tags: ["typescript", "web-dev"]
-coverImage: "images/blog/my-post/cover.jpg"
+coverImage: "/images/blog/my-post/cover.jpg"
 ---
 
 Your post content here...
@@ -71,7 +72,7 @@ description: "What this project does"
 techStack: ["react", "typescript", "tailwindcss"]
 repoUrl: "https://github.com/user/repo"
 liveUrl: "https://project.example.com"
-coverImage: "images/projects/my-project/cover.jpg"
+coverImage: "/images/projects/my-project/cover.jpg"
 ---
 
 Your project description here...
@@ -87,11 +88,12 @@ Run the build command to generate the project page.
 │   ├── index.html
 │   ├── content/              # Markdown source files
 │   ├── posts/                # Generated pages (Git-ignored)
-│   └── templates/
+│   └── templates/            # HTML page templates
 ├── projects/                  # Projects section
 │   ├── index.html
 │   ├── content/              # Markdown source files
-│   └── posts/                # Generated pages (Git-ignored)
+│   ├── posts/                # Generated pages (Git-ignored)
+│   └── templates/            # HTML page templates
 ├── public/                    # Static assets & generated metadata
 │   ├── blogs.json
 │   ├── projects.json
@@ -107,10 +109,11 @@ Run the build command to generate the project page.
 
 ## 🔄 Build Process
 
-1. Generate blog and project pages from Markdown
-2. Lint CSS (Stylelint, zero warnings)
-3. Type-check TypeScript
-4. Bundle with Vite → `dist/`
+1. Generate project pages from `projects/content/`
+2. Generate blog pages from `blog/content/`
+3. Lint CSS (Stylelint, zero warnings)
+4. Type-check TypeScript
+5. Bundle with Vite → `dist/`
 
 Generated files are Git-ignored and recreated on each build.
 
