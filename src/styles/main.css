@@ -18,10 +18,10 @@
 
 @layer base {
   body {
-    @apply bg-white flex relative dark:text-white flex-col min-h-screen dark:bg-[#121212] border-black dark:border-white;
+    @apply bg-gray-200 flex relative dark:text-white flex-col min-h-dvh  dark:bg-[#232323] border-black dark:border-white;
   }
   main {
-    @apply flex-1 flex flex-col gap-12 py-8 pb-16 px-[10vw];
+    @apply flex-1 flex flex-col bg-white dark:bg-[#121212] gap-12 py-8 pb-16 px-[10vw];
   }
   site-header {
     @apply grid w-full grid-cols-3 items-center sticky h-16 top-0 z-50 py-2 px-5 bg-gray-200 dark:bg-[#232323];

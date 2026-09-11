@@ -29,18 +29,21 @@ class SiteHeader extends HTMLElement {
       <div class="justify-self-end invisible"></div>
     `;
 
-    const additionClassesCurrentPage = " bg-gray-300 dark:bg-[#343434]";
+    if (document.getElementById("404")) return;
 
-    if (window.location.pathname.startsWith("/blog")) {
-      const blogHTML = this.querySelector("#blog");
-      if (blogHTML) blogHTML.classList += additionClassesCurrentPage;
-    } else if (window.location.pathname.startsWith("/projects")) {
-      const projectsHTML = this.querySelector("#projects");
-      if (projectsHTML) projectsHTML.classList += additionClassesCurrentPage;
+    const path = window.location.pathname;
+    let activeLink;
+
+    if (path.startsWith("/blog")) {
+      activeLink = this.querySelector("#blog");
+    } else if (path.startsWith("/projects")) {
+      activeLink = this.querySelector("#projects");
     } else {
-      const homeHTML = this.querySelector("#home");
-      if (homeHTML) homeHTML.classList += additionClassesCurrentPage;
+      activeLink = this.querySelector("#home");
     }
+
+    if (activeLink)
+      activeLink.classList.add("bg-gray-300", "dark:bg-[#343434]");
   }
 }
 
