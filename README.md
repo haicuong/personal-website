@@ -1,6 +1,6 @@
 # Nguyen Hai Cuong's Digital Garden & Portfolio
 
-A personal portfolio and digital garden showcasing my software engineering projects, technical notes and controversial psychology through opposing lenses.
+A personal portfolio and digital garden showcasing my software engineering projects, technical notes.
 
 **🌐 Live Website:** [haicuong.me](https://haicuong.me)
 
