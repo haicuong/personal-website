@@ -135,6 +135,9 @@ Two details make this work:
 
 The history list showed another oddity. The previous entry appeared with the current page's title even though its URL was correct. I was rendering the `<title>` from state (the draft and debounced value), and state updates one render before the URL does. The title therefore changed while the old URL was still current, and the old entry received the new title.
 
+
+![Two history entries showing the same title](/images/blog/debounced-search-back-button/duplicate-title.webp)
+
 The fix was to derive the title from the URL's query, so it changes only after navigation:
 
 ```tsx
@@ -142,8 +145,6 @@ The fix was to derive the title from the URL's query, so it changes only after n
   <title>{`Search results for "${urlQuery}" | Movie Browser`}</title>
 )}
 ```
-
-![Two history entries showing the same title](/images/blog/debounced-search-back-button/duplicate-title.webp)
 
 ## Another duplicate: the home link
 
@@ -194,7 +195,6 @@ With this version, typing and then pressing Back returns to the previous URL, Ba
 
 - **Effect-driven synchronization.** The hook keeps two copies of one value aligned inside an effect. It works, but it relies on a ref and on the order of operations. React's guidance on [avoiding unnecessary effects](https://react.dev/learn/you-might-not-need-an-effect) suggests a design where the URL is the only committed state and the input is a draft that resets when it changes. I may revisit this.
 - **Dependence on `immediateUpdate`.** The hook assumes that `immediateUpdate` cancels any pending debounce timer.
-- **History policy.** Each committed query pushes a new history entry. Replacing the entry when one non-empty query is edited into another would keep Back cleaner. I have not implemented that.
 
 ## Takeaways
 
