@@ -13,16 +13,25 @@ const tagsHexColorMap = new Map<string, string>([
   ["frontend", "EC4899"],
   ["test", "10B981"],
   ["cloudflare", "F48120"],
+  ["react", "3B82C4"],
+  ["react router", "F44250"],
 ]);
 
 export function renderTags(tags: string[]) {
   let render: string = "";
   for (const tag of tags) {
     const hexColor = tagsHexColorMap.get(tag.toLowerCase());
+    const style = hexColor
+      ? `style="color: #${hexColor}; background-color: #${hexColor}25;"`
+      : "";
+    const defaultColorClasses = hexColor
+      ? ""
+      : "text-black bg-[#00000015] dark:text-[#F3F4F6] dark:bg-[#F3F4F625]";
+
     render += `
       <span
-        style="color: ${hexColor ? `#${hexColor}` : "light-dark(#000000, #F3F4F6)"}; background-color: ${hexColor ? `#${hexColor}25` : "light-dark(#00000015, #F3F4F625)"};"
-        class="rounded-full p-1 px-3"
+        ${style}
+        class="rounded-full p-1 px-3 ${defaultColorClasses}"
         >${tag}
       </span>`;
   }
