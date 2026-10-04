@@ -15,6 +15,8 @@ const tagsHexColorMap = new Map<string, string>([
   ["cloudflare", "F48120"],
   ["react", "3B82C4"],
   ["react router", "F44250"],
+  ["tanstack query", "E15222"],
+  ["motion", "0099FF"],
 ]);
 
 export function renderTags(tags: string[]) {
