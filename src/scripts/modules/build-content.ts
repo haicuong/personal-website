@@ -26,6 +26,7 @@ export async function buildContent<
       "bash",
       "yaml",
       "markdown",
+      "tsx",
     ],
   });
 
