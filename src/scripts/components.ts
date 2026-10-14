@@ -123,6 +123,26 @@ class SiteFooter extends HTMLElement {
             >@haicuong</a
           ></span
         >
+        <span
+          >LinkedIn:
+          <a
+            class="text-blue-500"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.linkedin.com/in/haicuongnguyen"
+            >@haicuongnguyen</a
+          ></span
+        >
+        <span
+          >Upwork:
+          <a
+            class="text-blue-500"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.upwork.com/freelancers/haicuong"
+            >@haicuong</a
+          ></span
+        >
         <br />
         <span>Contact for work</span>
         <span>
