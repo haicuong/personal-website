@@ -8,6 +8,9 @@
 - Generators: `build-blog.ts` and `build-projects.ts`.
 - Client rendering: `src/scripts/card-render.ts`; shared entry point: `src/scripts/main.ts`.
 - Shared Web Components: `src/scripts/components.ts`.
+- Content generation is shared by `src/scripts/modules/build-blog.ts` and
+  `src/scripts/modules/build-projects.ts` through
+  `src/scripts/modules/build-content.ts`.
 
 ## Build Order
 
@@ -34,6 +37,8 @@
 - `npm run build`: generate content, lint CSS, type-check, and bundle.
 - `npm run preview`: preview the production build.
 - `npm run lint:css`: run Stylelint with zero warnings allowed.
+- `npm run dev`: generate project and blog content before starting the Vite
+  development server.
 
 ## File Mapping
 
@@ -57,6 +62,16 @@
 - Use ISO dates (`YYYY-MM-DD`) and root-relative image paths such as `/images/blog/post/cover.webp`.
 - `lastEditedDate` is optional and falls back to `date` when omitted.
 - Run `npm run dev` or `npm run build` after adding content so the generated page and metadata are refreshed.
-- Supported Shiki languages: `javascript`, `typescript`, `html`, `css`, `json`, `bash`.
+- Supported Shiki languages: `javascript`, `typescript`, `html`, `css`, `json`,
+  `bash`, `yaml`, `markdown`, and `tsx`. Unknown code-block languages fall back
+  to plain text highlighting.
 - Slugs use kebab-case and map to `/blog/posts/<slug>/` or `/projects/posts/<slug>/`.
 - Add pages as `your-page/index.html` with `/src/styles/main.css` and `/src/scripts/main.ts`; Vite discovers them automatically.
+
+## Generator Details
+
+- Blog metadata uses `date` as the `lastEditedDate` when
+  `lastEditedDate` is omitted.
+- Blog post templates render `tags` through the shared tag renderer and expose
+  the `LAST_EDITED_DATE` template value.
+- Generated metadata is sorted newest-first by `date`.
