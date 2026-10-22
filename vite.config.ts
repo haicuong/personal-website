@@ -1,5 +1,6 @@
 import { resolve } from "path";
 import { defineConfig, type Plugin } from "vite";
+import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { globSync } from "glob";
 
@@ -23,13 +24,21 @@ function injectThemeScript(): Plugin {
 }
 
 const htmlEntries = globSync(["**/index.html", "404.html"], {
-  ignore: ["node_modules/**", "dist/**", "packages/**"],
+  ignore: [
+    "node_modules/**",
+    "dist/**",
+    "packages/**",
+    "blog/templates/**",
+    "projects/templates/**",
+  ],
 }).reduce(
   (acc, file) => {
+    const normalized = file.replace(/\\/g, "/");
     const name =
-      file === "404.html"
+      normalized === "404.html"
         ? "404"
-        : file.replace(/\/index\.html$/, "").replace(/\//g, "_") || "main";
+        : normalized.replace(/\/index\.html$/, "").replace(/\//g, "_") ||
+          "main";
     acc[name] = resolve(import.meta.dirname, file);
     return acc;
   },
@@ -43,5 +52,5 @@ export default defineConfig({
       input: htmlEntries,
     },
   },
-  plugins: [tailwindcss(), injectThemeScript()],
+  plugins: [react(), tailwindcss(), injectThemeScript()],
 });
