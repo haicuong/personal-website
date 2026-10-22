@@ -1,3 +1,4 @@
+import { formatDisplayDate } from "../scripts/date-format";
 import type { BlogMetadata } from "../scripts/types";
 import { TagList } from "./TagList";
 
@@ -6,9 +7,7 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ data }: BlogCardProps) {
-  const formattedDate = data.date
-    ? new Date(data.date).toLocaleDateString()
-    : "Date not found";
+  const formattedDate = formatDisplayDate(data.date, "Date not found");
 
   return (
     <a
@@ -31,4 +30,3 @@ export function BlogCard({ data }: BlogCardProps) {
     </a>
   );
 }
-

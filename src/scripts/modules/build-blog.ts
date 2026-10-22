@@ -1,6 +1,14 @@
-import { buildContent } from "./build-content";
-import type { BlogFrontmatterData, BlogMetadata } from "../types";
+import { createElement } from "react";
+import { renderToString } from "react-dom/server";
+import { BlogPostPage } from "../../pages/BlogPostPage";
+import { formatDisplayDate } from "../date-format";
 import { renderTags } from "../tags-render";
+import type {
+  BlogFrontmatterData,
+  BlogMetadata,
+  BlogPostPageData,
+} from "../types";
+import { buildContent } from "./build-content";
 
 buildContent<BlogFrontmatterData, BlogMetadata>({
   contentDir: "blog/content",
@@ -21,10 +29,31 @@ buildContent<BlogFrontmatterData, BlogMetadata>({
   },
   templateValues: (data: BlogFrontmatterData) => ({
     TAGS: data.tags ? renderTags(data.tags) : "No tag found",
-    LAST_EDITED_DATE: data.lastEditedDate
-      ? new Date(data.lastEditedDate).toLocaleDateString()
-      : data.date
-        ? new Date(data.date).toLocaleDateString()
-        : "",
+    LAST_EDITED_DATE: formatDisplayDate(data.lastEditedDate || data.date, ""),
   }),
-}).catch(console.error);
+  renderPage: (
+    _slug: string,
+    data: BlogFrontmatterData,
+    metadata: BlogMetadata,
+    contentHtml: string,
+  ) => {
+    const post: BlogPostPageData = {
+      ...metadata,
+      title: data.title || "Untitled Post",
+      createdDateFormatted: formatDisplayDate(data.date, ""),
+      lastEditedDateFormatted: formatDisplayDate(
+        data.lastEditedDate || data.date,
+        "",
+      ),
+      contentHtml,
+    };
+
+    return {
+      ssrHtml: renderToString(createElement(BlogPostPage, { post })),
+      pageData: { post },
+    };
+  },
+}).catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

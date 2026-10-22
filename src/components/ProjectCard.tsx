@@ -1,3 +1,4 @@
+import { formatDisplayDate } from "../scripts/date-format";
 import type { ProjectMetadata } from "../scripts/types";
 import { TagList } from "./TagList";
 
@@ -6,9 +7,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ data }: ProjectCardProps) {
-  const formattedDate = data.date
-    ? new Date(data.date).toLocaleDateString()
-    : "Date not found";
+  const formattedDate = formatDisplayDate(data.date, "Date not found");
 
   return (
     <a
@@ -29,4 +28,3 @@ export function ProjectCard({ data }: ProjectCardProps) {
     </a>
   );
 }
-

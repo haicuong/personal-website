@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx src/scripts/modules/build-projects.ts && tsx src/scripts/modules/build-blog.ts && vite",
-    "build": "tsx src/scripts/modules/build-projects.ts && tsx src/scripts/modules/build-blog.ts && npm run lint:css && tsc && vite build",
+    "build": "tsx src/scripts/modules/build-projects.ts && tsx src/scripts/modules/build-blog.ts && tsx src/scripts/modules/build-pages.ts && npm run lint:css && tsc && vite build",
     "preview": "vite preview",
     "lint:css": "stylelint \"src/**/*.css\" --max-warnings 0"
   },
