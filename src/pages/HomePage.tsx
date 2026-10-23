@@ -39,7 +39,10 @@ export function HomePage({ projects, blogs }: HomePageProps) {
         </p>
         <p className="indent-8">
           My projects include{" "}
-          <a href="/projects/movie-browser/" className="font-bold hover:underline">
+          <a
+            href="/projects/posts/movie-browser/"
+            className="font-bold hover:underline"
+          >
             Movie Browser
           </a>
           , a deployed movie discovery application featuring API integration,
@@ -127,4 +130,3 @@ export function HomePage({ projects, blogs }: HomePageProps) {
     </Layout>
   );
 }
-

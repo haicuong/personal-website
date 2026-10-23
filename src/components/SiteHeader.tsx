@@ -13,8 +13,6 @@ const ACTIVE_NAV_LINK_CLASS = "bg-gray-300 dark:bg-[#343434]";
 export function SiteHeader({ activeSection = "home" }: SiteHeaderProps) {
   const { theme, cycleTheme } = useTheme();
 
-  console.log("SiteHeader render", { activeSection, theme });
-
   function getNavLinkClass(section: Exclude<ActiveNavSection, "none">) {
     return activeSection === section
       ? `${BASE_NAV_LINK_CLASS} ${ACTIVE_NAV_LINK_CLASS}`
