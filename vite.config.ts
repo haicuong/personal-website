@@ -112,33 +112,30 @@ function injectPrerenderedPages(): Plugin {
         return html;
       }
 
+      const targetMount = `<div id="root" data-page="${pageId}"></div>`;
+
+      if (!html.includes(targetMount)) {
+        throw new Error(
+          `Expected mount element ${targetMount} was not found in ${relativeFile}.`,
+        );
+      }
+
+      if (html.includes('id="__PAGE_DATA__"')) {
+        throw new Error(
+          `Duplicate __PAGE_DATA__ script detected in ${relativeFile}.`,
+        );
+      }
+
       if (!ctx.server) {
         const manifest = loadValidatedManifest(repoRoot);
-        const targetMount = `<div id="root" data-page="${pageId}"></div>`;
-
-        if (!html.includes(targetMount)) {
-          return html;
-        }
-
-        if (html.includes('id="__PAGE_DATA__"')) {
-          throw new Error(
-            `Duplicate __PAGE_DATA__ script detected in ${relativeFile}.`,
-          );
-        }
-
         const entry = manifest[pageId];
         const dataScript = `<script id="__PAGE_DATA__" type="application/json">${serializePageData(entry.pageData)}</script>`;
 
         return html.replace(
           targetMount,
           () =>
-            `<div id="root" data-page="${pageId}">${entry.ssrHtml}</div>\n    ${dataScript}`,
+            `<div id="root" data-page="${pageId}" data-ssr="true">${entry.ssrHtml}</div>\n    ${dataScript}`,
         );
-      }
-
-      const targetMount = `<div id="root" data-page="${pageId}"></div>`;
-      if (!html.includes(targetMount) || html.includes('id="__PAGE_DATA__"')) {
-        return html;
       }
 
       const pageData = loadDevPageData(repoRoot, pageId);

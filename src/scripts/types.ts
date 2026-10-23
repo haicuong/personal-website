@@ -49,6 +49,8 @@ export interface ProjectPostPageData extends ProjectMetadata {
 
 export type StaticPageId = "home" | "blog-index" | "projects-index" | "404";
 
+export type PageId = StaticPageId | "blog-post" | "project-post";
+
 export interface PrerenderedPageEntry {
   ssrHtml: string;
   pageData: unknown;

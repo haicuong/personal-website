@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{TITLE}} | Hai Cuong</title>
     <meta name="description" content="{{DESCRIPTION}}" />
-    <script type="module" src="/src/scripts/main.ts"></script>
+    <script type="module" src="/src/scripts/main.tsx"></script>
   </head>
   <body>
-    <div id="root" data-page="project-post">{{SSR_HTML}}</div>
+    <div id="root" data-page="project-post" data-ssr="true">{{SSR_HTML}}</div>
     <script id="__PAGE_DATA__" type="application/json">{{PAGE_DATA}}</script>
   </body>
 </html>
