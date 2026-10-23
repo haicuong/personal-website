@@ -1,6 +1,13 @@
-import { buildContent } from "./build-content";
-import type { ProjectFrontmatterData, ProjectMetadata } from "../types";
+import { createElement } from "react";
+import { renderToString } from "react-dom/server";
+import { ProjectPostPage } from "../../pages/ProjectPostPage";
 import { renderTags } from "../tags-render";
+import type {
+  ProjectFrontmatterData,
+  ProjectMetadata,
+  ProjectPostPageData,
+} from "../types";
+import { buildContent } from "./build-content";
 
 buildContent<ProjectFrontmatterData, ProjectMetadata>({
   contentDir: "projects/content",
@@ -29,4 +36,24 @@ buildContent<ProjectFrontmatterData, ProjectMetadata>({
       : "Updating...",
     TECHSTACKS: data.techStack ? renderTags(data.techStack) : "",
   }),
-}).catch(console.error);
+  renderPage: (
+    _slug: string,
+    data: ProjectFrontmatterData,
+    metadata: ProjectMetadata,
+    contentHtml: string,
+  ) => {
+    const project: ProjectPostPageData = {
+      ...metadata,
+      title: data.title || "Untitled Post",
+      contentHtml,
+    };
+
+    return {
+      ssrHtml: renderToString(createElement(ProjectPostPage, { project })),
+      pageData: { project },
+    };
+  },
+}).catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

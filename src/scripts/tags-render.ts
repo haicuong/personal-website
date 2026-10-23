@@ -20,10 +20,14 @@ const tagsHexColorMap = new Map<string, string>([
   ["zustand", "A36938"],
 ]);
 
+export function getTagHexColor(tag: string): string | undefined {
+  return tagsHexColorMap.get(tag.toLowerCase());
+}
+
 export function renderTags(tags: string[]) {
   let render: string = "";
   for (const tag of tags) {
-    const hexColor = tagsHexColorMap.get(tag.toLowerCase());
+    const hexColor = getTagHexColor(tag);
     const style = hexColor
       ? `style="color: #${hexColor}; background-color: #${hexColor}25;"`
       : "";

@@ -5,18 +5,10 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projects | Hai Cuong</title>
-    <script type="module" src="/src/scripts/card-render.ts"></script>
-    <script type="module" src="/src/scripts/main.ts"></script>
+    <script type="module" src="/src/scripts/main.tsx"></script>
     <link rel="stylesheet" href="/src/styles/main.css" />
   </head>
   <body>
-    <site-header></site-header>
-    <main>
-      <h1 class="font-bold text-3xl text-center">Projects</h1>
-      <div id="projects-container" class="flex gap-4 my-4 mx-2 overflow-auto">
-        <span class="italic">Loading...</span>
-      </div>
-    </main>
-    <site-footer></site-footer>
+    <div id="root" data-page="projects-index"></div>
   </body>
 </html>
