@@ -7,7 +7,7 @@ interface SiteHeaderProps {
 }
 
 const BASE_NAV_LINK_CLASS =
-  "p-3 rounded-lg text-black dark:text-white transition-all md:hover:bg-gray-400 md:dark:hover:bg-[#454545] md:active:scale-95 active:scale-90 active:bg-gray-400 dark:active:bg-[#565656]";
+  "p-3 rounded-lg text-black dark:text-white transition-all md:hover:bg-[#b8bcc2] md:dark:hover:bg-[#454545] md:active:scale-95 active:scale-90 active:bg-gray-400 dark:active:bg-[#565656]";
 const ACTIVE_NAV_LINK_CLASS = "bg-gray-300 dark:bg-[#343434]";
 
 export function SiteHeader({ activeSection = "home" }: SiteHeaderProps) {

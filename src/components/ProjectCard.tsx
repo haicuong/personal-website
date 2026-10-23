@@ -10,7 +10,7 @@ export function ProjectCard({ data }: ProjectCardProps) {
   return (
     <a
       href={data.url}
-      className="flex md:hover:bg-gray-100 md:dark:hover:bg-[#202020] active:bg-gray-100 dark:active:bg-[#1c1c1c] flex-col min-w-[60vw] md:min-w-75 md:max-w-[30vw] border rounded-2xl p-4 text-black dark:text-white transition-all duration-150 active:scale-97 md:hover:scale-98 md:active:scale-96"
+      className="flex md:hover:bg-[#eceded] md:dark:hover:bg-[#202020] active:bg-[#eceded] dark:active:bg-[#1c1c1c] flex-col min-w-[60vw] md:min-w-75 md:max-w-[30vw] border rounded-2xl p-4 text-black dark:text-white transition-all duration-150 active:scale-97 md:hover:scale-98 md:active:scale-96"
     >
       <h3 className="text-lg line-clamp-2 h-[2lh] font-bold">{data.title}</h3>
       <FormattedDate
