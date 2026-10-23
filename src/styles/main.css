@@ -2,7 +2,18 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
+}
+
+:root.dark {
+  color-scheme: dark;
+}
+
+.no-transitions,
+.no-transitions *,
+.no-transitions ::before,
+.no-transitions ::after {
+  transition: none !important;
 }
 
 .shiki,
@@ -19,13 +30,13 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
-  * {
-    @apply transition-colors duration-300;
-  }
   body {
     @apply bg-gray-200 text-black flex relative dark:text-white flex-col min-h-dvh  dark:bg-[#232323] border-black dark:border-white;
   }
   main {
     @apply flex-1 flex flex-col text-black dark:text-white bg-white dark:bg-[#121212] gap-12 py-8 pb-16 px-[10vw];
+  }
+  #root {
+    @apply flex flex-1 flex-col;
   }
 }

@@ -12,7 +12,7 @@
 - Client entry point: `src/scripts/main.tsx` dispatches by `#root`'s `data-page` attribute (`home`, `blog-index`, `projects-index`, `404`, `blog-post`, `project-post`), validates `script#__PAGE_DATA__`, calls `hydrateRoot()` when `data-ssr="true"`, and calls `createRoot().render()` on empty dev shells.
 - Shared React components: `src/components/` (`Layout.tsx`, `SiteHeader.tsx`, `SiteFooter.tsx`, `BlogCard.tsx`, `ProjectCard.tsx`, `TagList.tsx`, `GiscusComments.tsx`).
 - React page components: `src/pages/` (`HomePage.tsx`, `BlogIndexPage.tsx`, `ProjectsIndexPage.tsx`, `BlogPostPage.tsx`, `ProjectPostPage.tsx`, `NotFoundPage.tsx`).
-- Hooks & shared utilities: `src/hooks/use-theme.ts`, `src/scripts/date-format.ts`, `src/scripts/tags-render.ts`, `src/scripts/types.ts`.
+- Hooks & shared utilities: `src/hooks/use-theme.ts` (3-state theme hook, pre-paint inline script generator, and instant DOM toggling with `.no-transitions`), `src/scripts/date-format.ts`, `src/scripts/tags-render.ts`, `src/scripts/types.ts`.
 
 ## Build Order
 
@@ -74,3 +74,4 @@
 - Dates displayed in cards and post headers are formatted deterministically in UTC via `formatDisplayDate()` (`src/scripts/date-format.ts`), and embedded `#__PAGE_DATA__` payloads are escaped via `serializePageData()`.
 - `buildContent()` validates `outputDir` against the strict allowlist (`blog/posts`, `projects/posts`) and removes obsolete generated post folders whose slugs no longer exist in `contentDir`.
 - Generated metadata in `public/blogs.json` and `public/projects.json` is sorted newest-first by `date`.
+- Theme mechanism: `src/hooks/use-theme.ts` defines `getThemeInitScript()` for pre-paint inline `<head>` script injection in `vite.config.ts`, and `applyThemeToDocument()` for instant synchronous `.dark` class updates with `.no-transitions` class suppression.

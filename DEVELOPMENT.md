@@ -101,7 +101,7 @@ Why this order is required:
 
 ### Hooks & Shared Utilities
 
-- `src/hooks/use-theme.ts` — Manages the 3-state theme cycle (`"system" | "dark" | "light"`). Initializes state to `null` during SSR/initial render so server and client markup match, then syncs with `localStorage.getItem("theme")` inside `useEffect`.
+- `src/hooks/use-theme.ts` — Manages the instant 3-state theme cycle (`"system" | "dark" | "light"`), pre-paint inline `<head>` script generation (`getThemeInitScript()`), and synchronous DOM `.dark` class updates with transition suppression (`.no-transitions`). Initializes state to `null` during SSR/initial render so server and client markup match, then syncs with `localStorage.getItem("theme")` inside `useEffect`.
 - `src/scripts/date-format.ts`:
   - `formatDisplayDate(dateStr, fallback)` — Deterministic UTC-parsed `M/D/YYYY` formatter so Node build scripts and browser hydration never diverge across locales/timezones.
   - `serializePageData(data)` — Serializes JSON for `<script id="__PAGE_DATA__" type="application/json">`, escaping `<` as `\u003c` to prevent premature `</script>` tag termination when Markdown code blocks contain HTML/script tags.
@@ -165,13 +165,22 @@ When Markdown files are renamed or deleted from `blog/content/` or `projects/con
 
 ## Theme Initialization & 3-State Toggle
 
-1. **FOUC Prevention (`injectThemeScript()` in `vite.config.ts`)**:
-   - Injects a synchronous inline `<script>` immediately after `<head>` on every HTML page.
-   - Reads `localStorage.getItem('theme')` and sets `document.documentElement.classList.toggle('dark', isDark)` before stylesheets or body markup paint.
-2. **3-State Cycle (`src/hooks/use-theme.ts` & `src/components/SiteHeader.tsx`)**:
-   - Cycles `"system"` → `"dark"` → `"light"` → `"system"` and persists the plain string under `localStorage.getItem("theme")`.
-   - Updates `document.documentElement.classList.toggle("dark", isDark)` and renders `/icon/system-theme.webp`, `/icon/dark-theme.webp`, or `/icon/light-theme.webp` inside `<button id="theme">`.
-   - During Node `renderToString` and the initial client hydration pass, `theme` is `null` so server and client DOM match without hydration warnings; `useEffect` immediately populates the current theme on mount.
+All theme constants (`THEME_STORAGE_KEY = "theme"`, `DARK_MEDIA_QUERY = "(prefers-color-scheme: dark)"`), normalization rules, pre-paint script generation (`getThemeInitScript()`), and React state management live in `src/hooks/use-theme.ts`:
+
+1. **Pre-Paint Initialization (`getThemeInitScript()` + `injectThemeScript()` in `vite.config.ts`)**:
+   - Because `<script type="module">` is deferred by specification, a synchronous inline `<script>` in `<head>` is required to apply `.dark` on `document.documentElement` before first paint.
+   - `injectThemeScript()` in `vite.config.ts` calls `getThemeInitScript()` from `src/hooks/use-theme.ts` so both the inline script and React hook share the exact same storage key, media query, `try/catch` storage guard, and normalization rule (`"dark" | "light" | "system"`, defaulting missing or invalid values to `"system"`). This eliminates any flash of unstyled content (FOUC).
+2. **Instant DOM Toggle & Transition Suppression (`applyThemeToDocument()` in `src/hooks/use-theme.ts`)**:
+   - When the user clicks `<button id="theme">`, `cycleTheme()` calls `applyThemeToDocument(nextTheme)` **synchronously before** calling `setTheme(nextTheme)`.
+   - The `.dark` class on `document.documentElement` is updated immediately within the click event turn without waiting for React's reconciliation or commit phase.
+   - To prevent jarring, gradual CSS color fades or mismatched transition timings across child elements and syntax-highlighted code blocks, `applyThemeToDocument()` temporarily adds `.no-transitions` (`transition: none !important;` in `src/styles/main.css`) to `document.documentElement`, forces a synchronous reflow via `window.getComputedStyle(document.documentElement).opacity`, and immediately removes `.no-transitions`. This guarantees an instantaneous, flicker-free visual theme switch.
+3. **React Hook & OS Theme Subscription (`useTheme()` in `src/hooks/use-theme.ts`)**:
+   - During Node `renderToString` and initial client hydration, `theme` is `null` so `<button id="theme">` renders deterministic markup with zero hydration mismatch warnings.
+   - On mount (`useEffect`), `useTheme()` safely reads and normalizes `localStorage.getItem("theme")`, writes back the normalized value (`"system"` if absent/invalid), applies `.dark` to `document.documentElement`, and renders the matching icon (`/icon/system-theme.webp`, `/icon/dark-theme.webp`, or `/icon/light-theme.webp`).
+   - When `theme === "system"`, a second `useEffect` subscribes to `window.matchMedia("(prefers-color-scheme: dark)")` `"change"` events so OS theme changes update the page immediately; manual `"dark"` and `"light"` preferences unsubscribe and override the OS.
+4. **CSS `color-scheme` & Shiki Synchronization (`src/styles/main.css`)**:
+   - `:root` sets `color-scheme: light;` and `:root.dark` sets `color-scheme: dark;`.
+   - Because CSS `light-dark(...)` resolves against the element's computed `color-scheme`, `.shiki` and `.shiki span` foregrounds (`var(--shiki-light)` / `var(--shiki-dark)`), backgrounds (`#f6f8fa` / `var(--shiki-dark-bg)`), and borders (`#e5e7eb` / `#30363d`) always match the website's active theme even when overriding the OS preference.
 
 ---
 
@@ -224,19 +233,5 @@ Code blocks with an unrecognized language identifier fall back to `"text"` (plai
   - `"noUnusedLocals": true`, `"noUnusedParameters": true`, `"noFallthroughCasesInSwitch": true`
 - **CSS (`src/styles/main.css` & `.stylelintrc.json`)**:
   - Uses Tailwind CSS v4 (`@import "tailwindcss";`, `@plugin "@tailwindcss/typography";`, `@custom-variant dark (&:where(.dark, .dark *));`).
+  - `#root` is styled with `@apply flex flex-1 flex-col;` inside `body` (`flex flex-col min-h-dvh`) so `main` (`flex-1`) stretches to push the footer to the bottom of the viewport on short pages.
   - Must pass `npm run lint:css` with zero warnings.
-
----
-
-## Known Deferred Issues
-
-The following items are documented for tracking and intentionally excluded from the initial React migration commits:
-
-1. **Pre-Existing — Broken Movie Browser Link on Homepage**:
-   - In `src/pages/HomePage.tsx` (ported 1:1 from the original `index.html`), the inline "Movie Browser" link in the "About & Focus" section points to `/projects/movie-browser/` instead of `/projects/posts/movie-browser/`.
-2. **Pre-Existing — Shiki `light-dark()` vs. Manual Theme Override**:
-   - In `src/styles/main.css`, `:root { color-scheme: light dark; }` causes `.shiki` `light-dark(...)` colors to follow the OS `prefers-color-scheme` rather than the manual `.dark` class on `<html>` when the user overrides the system theme.
-3. **Pre-Existing — Legacy `site-header` / `site-footer` Selectors & `#root` Flex Wrapper in `src/styles/main.css`**:
-   - `src/styles/main.css` still defines base rules for the removed `site-header` and `site-footer` custom element tags (though `SiteHeader.tsx` and `SiteFooter.tsx` apply those utility classes directly on `<header>` and `<footer>`). Additionally, because `<div id="root">` now wraps `<header>`, `<main>`, and `<footer>` inside `<body>` (`flex flex-col min-h-dvh`), adding `#root { @apply flex flex-1 flex-col; }` (or `contents`) in `src/styles/main.css` is recommended in a follow-up styling cleanup so `<main>` (`flex-1`) stretches to fill tall viewports (>1050px) on shorter listing pages (`/blog/`, `/projects/`).
-4. **Temporary Debug Log in `src/components/SiteHeader.tsx`**:
-   - `SiteHeader.tsx` currently contains a `console.log("SiteHeader render", { activeSection, theme });` statement added during migration debugging.

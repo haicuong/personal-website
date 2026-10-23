@@ -4,20 +4,13 @@ import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { globSync } from "glob";
+import { getThemeInitScript } from "./src/hooks/use-theme.ts";
 import type {
   PrerenderedPagesManifest,
   StaticPageId,
 } from "./src/scripts/types.ts";
 
-const THEME_SCRIPT = `
-<script>
-  (function() {
-    const stored = localStorage.getItem('theme');
-    const isDark = stored === 'dark' || (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    document.documentElement.classList.toggle('dark', isDark);
-  })();
-</script>
-`;
+const THEME_SCRIPT = getThemeInitScript();
 
 const PAGE_ENTRY_MAP: Readonly<Record<string, StaticPageId>> = {
   "index.html": "home",

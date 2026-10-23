@@ -10,7 +10,7 @@ A personal portfolio and digital garden showcasing software engineering projects
 - **Markdown-Driven Content** — Write blog posts and project write-ups in Markdown (`blog/content/`, `projects/content/`); build scripts compile static HTML pages and JSON metadata
 - **Prerendered Listing Cards** — Project and blog cards on `/`, `/blog/`, and `/projects/` are prerendered into production HTML at build time with zero client-side JSON re-fetching
 - **Post Comments** — Blog and project articles include Giscus-powered comments mounted client-side after hydration
-- **3-State Theme Toggle** — Cycles `system → dark → light → system`, persisted in `localStorage` with an inline `<head>` script to prevent flash of unstyled content (FOUC)
+- **Instant 3-State Theme Toggle** — Cycles `system → dark → light → system`, persisted in `localStorage` with synchronous DOM application, transition suppression (`.no-transitions`) to eliminate jarring color fades, and an inline `<head>` script to prevent flash of unstyled content (FOUC)
 - **Responsive Design** — Styled with Tailwind CSS v4 and `@tailwindcss/typography`
 - **Strict Quality Gates** — Enforced Stylelint (`--max-warnings 0`) and strict TypeScript checks on every build
 
