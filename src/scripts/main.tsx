@@ -80,10 +80,6 @@ function isProjectMetadata(value: unknown): value is ProjectMetadata {
 function isBlogPostPageData(value: unknown): value is BlogPostPageData {
   return (
     isBlogMetadata(value) &&
-    typeof (value as unknown as Record<string, unknown>).createdDateFormatted ===
-      "string" &&
-    typeof (value as unknown as Record<string, unknown>)
-      .lastEditedDateFormatted === "string" &&
     typeof (value as unknown as Record<string, unknown>).contentHtml === "string"
   );
 }
@@ -91,8 +87,6 @@ function isBlogPostPageData(value: unknown): value is BlogPostPageData {
 function isProjectPostPageData(value: unknown): value is ProjectPostPageData {
   return (
     isProjectMetadata(value) &&
-    typeof (value as unknown as Record<string, unknown>).createdDateFormatted ===
-      "string" &&
     typeof (value as unknown as Record<string, unknown>).contentHtml === "string"
   );
 }

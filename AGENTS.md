@@ -71,7 +71,7 @@
 ## Generator & Cleanup Details
 
 - Blog metadata uses `date` as the `lastEditedDate` when `lastEditedDate` is omitted.
-- Dates displayed in cards and post headers are formatted deterministically in UTC via `formatDisplayDate()` (`src/scripts/date-format.ts`), and embedded `#__PAGE_DATA__` payloads are escaped via `serializePageData()`.
+- Dates displayed in cards and post headers use `<FormattedDate />` (`src/components/FormattedDate.tsx`) to render semantic `<time dateTime="YYYY-MM-DD">` with deterministic raw ISO date labels during SSR/hydration, formatting for visitor locale client-side via `formatLocalizedDate()` (`src/scripts/date-format.ts`), and embedded `#__PAGE_DATA__` payloads are escaped via `serializePageData()`.
 - `buildContent()` validates `outputDir` against the strict allowlist (`blog/posts`, `projects/posts`) and removes obsolete generated post folders whose slugs no longer exist in `contentDir`.
 - Generated metadata in `public/blogs.json` and `public/projects.json` is sorted newest-first by `date`.
 - Theme mechanism: `src/hooks/use-theme.ts` defines `getThemeInitScript()` for pre-paint inline `<head>` script injection in `vite.config.ts`, and `applyThemeToDocument()` for instant synchronous `.dark` class updates with `.no-transitions` class suppression.

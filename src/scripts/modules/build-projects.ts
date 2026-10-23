@@ -1,7 +1,6 @@
 import { createElement } from "react";
 import { renderToString } from "react-dom/server";
 import { ProjectPostPage } from "../../pages/ProjectPostPage";
-import { formatDisplayDate } from "../date-format";
 import { renderTags } from "../tags-render";
 import type {
   ProjectFrontmatterData,
@@ -46,7 +45,6 @@ buildContent<ProjectFrontmatterData, ProjectMetadata>({
     const project: ProjectPostPageData = {
       ...metadata,
       title: data.title || "Untitled Post",
-      createdDateFormatted: formatDisplayDate(data.date, ""),
       contentHtml,
     };
 

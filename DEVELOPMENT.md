@@ -84,7 +84,8 @@ Why this order is required:
 - `Layout.tsx` — Renders `<SiteHeader activeSection={activeSection} />`, `<main className={mainClassName}>{children}</main>`, and `<SiteFooter />`.
 - `SiteHeader.tsx` — Sticky top navigation bar (`Home`, `Projects`, `Blog`) and the theme toggle button (`#theme`). Uses the explicit `activeSection` prop (`"home" | "projects" | "blog" | "none"`) rather than reading `window.location` so server rendering and client hydration always produce identical classes.
 - `SiteFooter.tsx` — Footer with author contact and social links (`<address>`).
-- `ProjectCard.tsx` & `BlogCard.tsx` — Render project and blog summary cards with formatted dates (`formatDisplayDate`) and colored tag pills (`<TagList />`).
+- `ProjectCard.tsx` & `BlogCard.tsx` — Render project and blog summary cards with localized dates (`<FormattedDate />`) and colored tag pills (`<TagList />`).
+- `FormattedDate.tsx` — Shared semantic date-display component (`<time dateTime="YYYY-MM-DD">`). Renders deterministic raw ISO dates during SSR and initial hydration to eliminate hydration mismatches, then formats for the visitor's browser locale via `useEffect` and `Intl.DateTimeFormat` (preserving calendar day with UTC timeZone for date-only values).
 - `TagList.tsx` — Renders tag pills using hex color mappings from `src/scripts/tags-render.ts`.
 - `GiscusComments.tsx` — Renders `<div ref={containerRef} className="giscus mt-8" />` during SSR and initial hydration, then dynamically appends `<script src="https://giscus.app/client.js" ...>` inside a client `useEffect`.
 
@@ -103,7 +104,9 @@ Why this order is required:
 
 - `src/hooks/use-theme.ts` — Manages the instant 3-state theme cycle (`"system" | "dark" | "light"`), pre-paint inline `<head>` script generation (`getThemeInitScript()`), and synchronous DOM `.dark` class updates with transition suppression (`.no-transitions`). Initializes state to `null` during SSR/initial render so server and client markup match, then syncs with `localStorage.getItem("theme")` inside `useEffect`.
 - `src/scripts/date-format.ts`:
-  - `formatDisplayDate(dateStr, fallback)` — Deterministic UTC-parsed `M/D/YYYY` formatter so Node build scripts and browser hydration never diverge across locales/timezones.
+  - `isDateOnly(dateStr)` — Checks whether a string represents a calendar date (`YYYY-MM-DD`).
+  - `parseDate(dateStr)` — Parses calendar dates into UTC `Date` objects with `{ timeZone: "UTC" }` (guaranteeing the calendar day never shifts across negative or positive visitor timezones) or parses timestamp strings into local `Date` objects.
+  - `formatLocalizedDate(dateStr, locale, fallback)` — Formats dates localized for the visitor's browser or specified locale.
   - `serializePageData(data)` — Serializes JSON for `<script id="__PAGE_DATA__" type="application/json">`, escaping `<` as `\u003c` to prevent premature `</script>` tag termination when Markdown code blocks contain HTML/script tags.
 - `src/scripts/tags-render.ts` — Exports `tagsHexColorMap`, `getTagHexColor(tag)`, and `renderTags(tags)`.
 - `src/scripts/types.ts` — Shared TypeScript interfaces for frontmatter, metadata, post page data, `StaticPageId`, `PageId`, `PrerenderedPagesManifest`, and `BuildContentOptions`.
@@ -115,7 +118,7 @@ Why this order is required:
 ### 1. Individual Blog & Project Posts (`build-content.ts`, `build-blog.ts`, `build-projects.ts`)
 
 1. `buildContent()` parses each `.md` file in `blog/content/` or `projects/content/` using `gray-matter`, converts Markdown to HTML with `marked` and `shiki`, and invokes the generator's `renderPage()` callback.
-2. `renderPage()` constructs a `BlogPostPageData` or `ProjectPostPageData` object (including pre-formatted `createdDateFormatted` / `lastEditedDateFormatted` and `contentHtml`) and calls `renderToString(createElement(BlogPostPage, { post }))` or `renderToString(createElement(ProjectPostPage, { project }))`.
+2. `renderPage()` constructs a `BlogPostPageData` or `ProjectPostPageData` object (with raw ISO date values and `contentHtml`) and calls `renderToString(createElement(BlogPostPage, { post }))` or `renderToString(createElement(ProjectPostPage, { project }))`. Date formatting is handled by `<FormattedDate />`.
 3. `buildContent()` injects `{{SSR_HTML}}` into `<div id="root" data-page="blog-post|project-post" data-ssr="true">{{SSR_HTML}}</div>` and `{{PAGE_DATA}}` into `<script id="__PAGE_DATA__" type="application/json">{{PAGE_DATA}}</script>` inside `blog/templates/blog-template.html` or `projects/templates/project-template.html`, writing `blog/posts/<slug>/index.html` and `projects/posts/<slug>/index.html`.
 
 ### 2. Static Listing & 404 Pages (`build-pages.ts` + `injectPrerenderedPages()` in `vite.config.ts`)

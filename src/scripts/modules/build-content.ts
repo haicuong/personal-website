@@ -3,7 +3,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
 import { createHighlighter } from "shiki";
-import { formatDisplayDate, serializePageData } from "../date-format";
+import { serializePageData } from "../date-format";
 import type {
   BaseMetadata,
   BaseFrontmatterData,
@@ -192,7 +192,7 @@ export async function buildContent<
       .replaceAll("{{TITLE}}", () => data.title || "Untitled Post")
       .replaceAll("{{DESCRIPTION}}", () => data.description || "")
       .replaceAll("{{CONTENT}}", () => htmlContent)
-      .replaceAll("{{CREATED_DATE}}", () => formatDisplayDate(data.date, ""));
+      .replaceAll("{{CREATED_DATE}}", () => data.date || "");
 
     const templateValues = options.templateValues?.(data) || {};
 

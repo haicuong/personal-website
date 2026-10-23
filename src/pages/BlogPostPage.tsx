@@ -1,3 +1,4 @@
+import { FormattedDate } from "../components/FormattedDate";
 import { GiscusComments } from "../components/GiscusComments";
 import { Layout } from "../components/Layout";
 import { TagList } from "../components/TagList";
@@ -19,9 +20,9 @@ export function BlogPostPage({ post }: BlogPostPageProps) {
         <hr />
         <h1>{post.title}</h1>
         <p>
-          Created: {post.createdDateFormatted}
+          Created: <FormattedDate date={post.date} />
           <br />
-          Edited: {post.lastEditedDateFormatted}
+          Edited: <FormattedDate date={post.lastEditedDate} />
         </p>
         <div className="flex items-center flex-wrap gap-2">
           Tags:{" "}

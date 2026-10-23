@@ -1,5 +1,5 @@
-import { formatDisplayDate } from "../scripts/date-format";
 import type { BlogMetadata } from "../scripts/types";
+import { FormattedDate } from "./FormattedDate";
 import { TagList } from "./TagList";
 
 interface BlogCardProps {
@@ -7,15 +7,17 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ data }: BlogCardProps) {
-  const formattedDate = formatDisplayDate(data.date, "Date not found");
-
   return (
     <a
       href={data.url}
       className="flex flex-col md:hover:scale-98 min-w-[60vw] md:min-w-75 md:max-w-[30vw] border rounded-2xl p-4 text-black dark:text-white transition-all duration-150 md:dark:hover:bg-[#202020] md:hover:bg-gray-100 active:bg-gray-100 dark:active:bg-[#1c1c1c] active:scale-97 md:active:scale-96"
     >
       <h3 className="text-lg line-clamp-2 h-[2lh] font-bold">{data.title}</h3>
-      <span className="text-sm text-gray-400">{formattedDate}</span>
+      <FormattedDate
+        date={data.date}
+        className="text-sm text-gray-400"
+        fallback="Date not found"
+      />
       {data.coverImage ? (
         <img
           className="object-cover aspect-video my-2"

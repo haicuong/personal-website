@@ -37,13 +37,13 @@ export interface ProjectFrontmatterData extends BaseFrontmatterData {
 }
 
 export interface BlogPostPageData extends BlogMetadata {
-  createdDateFormatted: string;
-  lastEditedDateFormatted: string;
+  createdDateFormatted?: string;
+  lastEditedDateFormatted?: string;
   contentHtml: string;
 }
 
 export interface ProjectPostPageData extends ProjectMetadata {
-  createdDateFormatted: string;
+  createdDateFormatted?: string;
   contentHtml: string;
 }
 

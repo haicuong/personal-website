@@ -1,7 +1,6 @@
 import { createElement } from "react";
 import { renderToString } from "react-dom/server";
 import { BlogPostPage } from "../../pages/BlogPostPage";
-import { formatDisplayDate } from "../date-format";
 import { renderTags } from "../tags-render";
 import type {
   BlogFrontmatterData,
@@ -29,7 +28,6 @@ buildContent<BlogFrontmatterData, BlogMetadata>({
   },
   templateValues: (data: BlogFrontmatterData) => ({
     TAGS: data.tags ? renderTags(data.tags) : "No tag found",
-    LAST_EDITED_DATE: formatDisplayDate(data.lastEditedDate || data.date, ""),
   }),
   renderPage: (
     _slug: string,
@@ -40,11 +38,6 @@ buildContent<BlogFrontmatterData, BlogMetadata>({
     const post: BlogPostPageData = {
       ...metadata,
       title: data.title || "Untitled Post",
-      createdDateFormatted: formatDisplayDate(data.date, ""),
-      lastEditedDateFormatted: formatDisplayDate(
-        data.lastEditedDate || data.date,
-        "",
-      ),
       contentHtml,
     };
 
