@@ -1,4 +1,4 @@
-import { useTheme } from "../hooks/use-theme";
+import { ThemeToggle } from "./ThemeToggle";
 
 export type ActiveNavSection = "home" | "projects" | "blog" | "none";
 
@@ -11,8 +11,6 @@ const BASE_NAV_LINK_CLASS =
 const ACTIVE_NAV_LINK_CLASS = "bg-gray-300 dark:bg-[#343434]";
 
 export function SiteHeader({ activeSection = "home" }: SiteHeaderProps) {
-  const { theme, cycleTheme } = useTheme();
-
   function getNavLinkClass(section: Exclude<ActiveNavSection, "none">) {
     return activeSection === section
       ? `${BASE_NAV_LINK_CLASS} ${ACTIVE_NAV_LINK_CLASS}`
@@ -44,28 +42,7 @@ export function SiteHeader({ activeSection = "home" }: SiteHeaderProps) {
           Blog
         </a>
       </nav>
-      <button
-        id="theme"
-        type="button"
-        onClick={cycleTheme}
-        className="bg-gray-300 transition hover:cursor-pointer hover:bg-gray-400 dark:hover:bg-[#404040] dark:bg-[#343434] rounded-2xl size-12 p-2 justify-self-end active:scale-94 md:hover:scale-96 md:active:scale-92"
-      >
-        {theme === "dark" ? (
-          <img
-            src="/icon/dark-theme.webp"
-            className="dark:invert"
-            alt="Dark theme icon"
-          />
-        ) : theme === "light" ? (
-          <img src="/icon/light-theme.webp" alt="Light theme icon" />
-        ) : theme === "system" ? (
-          <img
-            src="/icon/system-theme.webp"
-            className="dark:invert p-0.5"
-            alt="System theme icon"
-          />
-        ) : null}
-      </button>
+      <ThemeToggle />
     </header>
   );
 }

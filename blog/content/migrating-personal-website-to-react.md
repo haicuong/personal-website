@@ -178,7 +178,9 @@ Hydration only works if the first render in the browser matches the HTML from th
 
 - **The active nav link.** The old header read `window.location.pathname`. That does not exist in Node, so the React `SiteHeader` takes an `activeSection` prop instead, and each page passes its own section.
 - **Dates.** The old cards used `new Date(data.date).toLocaleDateString()`, which depends on the timezone of whoever runs it. The build runs in one timezone and visitors are in others. Initially `formatDisplayDate()` used `timeZone: "UTC"`, but because different locales format dates differently, that still risked hydration mismatches across visitors. The proper fix is a shared `<FormattedDate />` component: it renders the raw ISO date (like `2026-10-04`) inside `<time dateTime="YYYY-MM-DD">` during SSR and initial hydration so the server and client HTML match identically everywhere, then formats for the visitor's browser locale in `useEffect` after hydration while preserving the calendar day.
-- **The theme icon.** The saved theme lives in `localStorage`, which the build cannot read. `useTheme()` starts with `null`, so the button renders without an icon on both sides, and the real value is read in `useEffect` after hydration. The `.dark` class itself is still set by the inline `<head>` script before the first paint, so the colors are right from the start. Only the icon appears a moment later.
+- **The theme icon and its entrance animation.** The saved theme lives in `localStorage`, which the build cannot read. `useTheme()` starts with `null`, so the button renders without an icon on both sides, avoiding a hydration mismatch. The real value is read in `useEffect` after hydration. The `.dark` class itself is still set by the inline `<head>` script before the first paint, so the colors are right from the start. Only the icon appears a moment later.
+
+  However, pairing this hydration pattern with animated icons (`lucide-react` and Framer Motion) introduced an animation trap: `<AnimatePresence initial={false}>` only suppresses animations for children present on its *very first mount*. Because `theme` resolves on the second render (post-hydration), Framer Motion treats the resolved icon as a newly inserted child in an already-mounted container and triggers its entrance slide animation on every page reload. The fix was tracking user clicks with a ref (`hasInteractedRef`): passing `initial={false}` directly to the icon component on mount ensures it renders statically on first load and reloads, while enabling `initial={{ y: "-150%", ... }}` only when the visitor actually clicks the toggle. Furthermore, centering the icon required `absolute inset-0 m-auto` rather than CSS translate transforms (`-translate-x-1/2 -translate-y-1/2`), which would otherwise be overwritten by Framer Motion's inline `transform: translateY(...)`.
 
 ## How I staged it
 
@@ -206,7 +208,7 @@ In headless Edge with an `en-US` locale, against both `npm run dev` and `npm run
 - No console errors and no hydration mismatch warnings.
 - No requests to `/blogs.json` or `/projects.json`.
 - In the production preview, the cards were in the HTML: three project cards and two blog cards on `/`, with no `Loading...` placeholders.
-- The theme toggle cycled `system → dark → light → system` and kept the choice after a reload.
+- The theme toggle cycled `system → dark → light → system`, kept the choice after a reload, and loaded statically without re-triggering entrance animations on page reload.
 
 For the follow-up, I also checked the computed colors of a Shiki code block for each combination of OS preference and saved theme.
 

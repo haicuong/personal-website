@@ -10,7 +10,7 @@
   - `injectThemeScript()`: injects synchronous `<head>` theme initialization script.
   - `injectPrerenderedPages()`: injects `dist-ssr/pages.json` markup (`data-ssr="true"`) and `#__PAGE_DATA__` into production HTML builds, and injects `#__PAGE_DATA__` in development mode without modifying tracked HTML source files.
 - Client entry point: `src/scripts/main.tsx` dispatches by `#root`'s `data-page` attribute (`home`, `blog-index`, `projects-index`, `404`, `blog-post`, `project-post`), validates `script#__PAGE_DATA__`, calls `hydrateRoot()` when `data-ssr="true"`, and calls `createRoot().render()` on empty dev shells.
-- Shared React components: `src/components/` (`Layout.tsx`, `SiteHeader.tsx`, `SiteFooter.tsx`, `BlogCard.tsx`, `ProjectCard.tsx`, `TagList.tsx`, `GiscusComments.tsx`).
+- Shared React components: `src/components/` (`Layout.tsx`, `SiteHeader.tsx`, `SiteFooter.tsx`, `ThemeToggle.tsx`, `BlogCard.tsx`, `ProjectCard.tsx`, `TagList.tsx`, `GiscusComments.tsx`).
 - React page components: `src/pages/` (`HomePage.tsx`, `BlogIndexPage.tsx`, `ProjectsIndexPage.tsx`, `BlogPostPage.tsx`, `ProjectPostPage.tsx`, `NotFoundPage.tsx`).
 - Hooks & shared utilities: `src/hooks/use-theme.ts` (3-state theme hook, pre-paint inline script generator, and instant DOM toggling with `.no-transitions`), `src/scripts/date-format.ts`, `src/scripts/tags-render.ts`, `src/scripts/types.ts`.
 
@@ -51,6 +51,7 @@
 - `blog/templates/blog-template.html`: blog post page template (`data-page="blog-post" data-ssr="true"`).
 - `projects/templates/project-template.html`: project page template (`data-page="project-post" data-ssr="true"`).
 - Blog and project post comments use `<GiscusComments />` (`src/components/GiscusComments.tsx`), mounted client-side after hydration on `BlogPostPage` and `ProjectPostPage`.
+- Theme toggle uses `<ThemeToggle />` (`src/components/ThemeToggle.tsx`), mounted inside `<SiteHeader />`.
 - `src/styles/main.css`: Tailwind CSS v4 imports and shared styles.
 - `src/scripts/types.ts`: metadata, frontmatter, page-data, and build interfaces.
 - `public/images/blog/`: blog assets.
@@ -75,3 +76,4 @@
 - `buildContent()` validates `outputDir` against the strict allowlist (`blog/posts`, `projects/posts`) and removes obsolete generated post folders whose slugs no longer exist in `contentDir`.
 - Generated metadata in `public/blogs.json` and `public/projects.json` is sorted newest-first by `date`.
 - Theme mechanism: `src/hooks/use-theme.ts` defines `getThemeInitScript()` for pre-paint inline `<head>` script injection in `vite.config.ts`, and `applyThemeToDocument()` for instant synchronous `.dark` class updates with `.no-transitions` class suppression.
+- Theme toggle component: `src/components/ThemeToggle.tsx` renders animated Lucide icons (`Sun`, `Moon`, `Monitor`) via `motion/react` and `<AnimatePresence mode="sync" initial={false}>`. During SSR and initial client hydration, `useTheme()` starts as `null` so the button renders without an icon to avoid hydration mismatches. To prevent Framer Motion from treating the second (hydrated) render as a new entering child and triggering an entrance animation on page reload, `ThemeToggle` guards initial animations with `hasInteractedRef` (`initial={false}` on mount). Icons are centered via `size-7 absolute inset-0 m-auto` within a relative flex container to avoid conflicts with Motion's inline `transform: translateY(...)`.

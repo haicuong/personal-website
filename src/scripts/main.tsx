@@ -20,6 +20,7 @@ import type {
   ProjectMetadata,
   ProjectPostPageData,
 } from "./types";
+import { MotionConfig } from "motion/react";
 
 // Fix Safari UI touch :active pseudo-class states
 document.addEventListener("touchstart", () => {}, { passive: true });
@@ -80,14 +81,16 @@ function isProjectMetadata(value: unknown): value is ProjectMetadata {
 function isBlogPostPageData(value: unknown): value is BlogPostPageData {
   return (
     isBlogMetadata(value) &&
-    typeof (value as unknown as Record<string, unknown>).contentHtml === "string"
+    typeof (value as unknown as Record<string, unknown>).contentHtml ===
+      "string"
   );
 }
 
 function isProjectPostPageData(value: unknown): value is ProjectPostPageData {
   return (
     isProjectMetadata(value) &&
-    typeof (value as unknown as Record<string, unknown>).contentHtml === "string"
+    typeof (value as unknown as Record<string, unknown>).contentHtml ===
+      "string"
   );
 }
 
@@ -128,8 +131,9 @@ function isProjectPostPageProps(value: unknown): value is ProjectPostPageProps {
 }
 
 function readPageData(pageId: Exclude<PageId, "404">): unknown {
-  const scriptElement =
-    document.querySelector<HTMLScriptElement>("script#__PAGE_DATA__");
+  const scriptElement = document.querySelector<HTMLScriptElement>(
+    "script#__PAGE_DATA__",
+  );
   if (!scriptElement) {
     throw new Error(
       `Missing <script id="__PAGE_DATA__" type="application/json"> for page "${pageId}".`,
@@ -217,7 +221,16 @@ function bootstrap() {
     );
   }
 
-  const pageElement = <StrictMode>{resolvePageElement(rawPageId)}</StrictMode>;
+  const pageElement = (
+    <StrictMode>
+      <MotionConfig
+        reducedMotion="user"
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        {resolvePageElement(rawPageId)}
+      </MotionConfig>
+    </StrictMode>
+  );
 
   const isSsr = rootElement.dataset.ssr === "true";
   const hasPrerenderedMarkup = rootElement.firstElementChild !== null;
@@ -242,4 +255,3 @@ function bootstrap() {
 }
 
 bootstrap();
-
