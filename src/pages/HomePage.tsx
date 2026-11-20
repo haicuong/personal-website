@@ -41,7 +41,7 @@ export function HomePage({ projects, blogs }: HomePageProps) {
           My projects include{" "}
           <a
             href="/projects/posts/movie-browser/"
-            className="font-bold hover:underline"
+            className="font-bold underline"
           >
             Movie Browser
           </a>
@@ -65,23 +65,29 @@ export function HomePage({ projects, blogs }: HomePageProps) {
         </p>
         <p className="indent-8">
           Explore my{" "}
-          <a href="/projects/" className="text-blue-500 hover:underline">
+          <a
+            href="/projects/"
+            className="text-blue-600 dark:text-blue-500 hover:underline"
+          >
             Projects
           </a>
           ,{" "}
-          <a href="/blog/" className="text-blue-500 hover:underline">
+          <a
+            href="/blog/"
+            className="text-blue-600 dark:text-blue-500 hover:underline"
+          >
             Blogs
           </a>
           , browse my{" "}
           <a
             href="https://github.com/haicuong"
-            className="text-blue-500 hover:underline"
+            className="text-blue-600 dark:text-blue-500 hover:underline"
           >
             GitHub
           </a>
           , or{" "}
           <a
-            className="text-blue-500 hover:underline"
+            className="text-blue-600 dark:text-blue-500 hover:underline"
             href="mailto:haicuong.work@gmail.com"
           >
             get in touch

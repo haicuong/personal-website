@@ -144,6 +144,7 @@ export async function buildContent<
       "yaml",
       "markdown",
       "tsx",
+      "sql",
     ],
   });
 

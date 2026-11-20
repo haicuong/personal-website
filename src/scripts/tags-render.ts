@@ -18,6 +18,15 @@ const tagsHexColorMap = new Map<string, string>([
   ["tanstack query", "E15222"],
   ["motion", "0099FF"],
   ["zustand", "A36938"],
+  ["node.js", "4DA64A"],
+  ["express", "64748B"],
+  ["postgresql", "3A7BD5"],
+  ["prisma", "5A67D8"],
+  ["zod", "4068B8"],
+  ["vitest", "729B1B"],
+  ["backend", "6366F1"],
+  ["security", "EF4444"],
+  ["performance", "F59E0B"],
 ]);
 
 export function getTagHexColor(tag: string): string | undefined {
