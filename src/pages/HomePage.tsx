@@ -47,7 +47,7 @@ export function HomePage({ projects, blogs }: HomePageProps) {
           </a>
           , a deployed movie discovery application featuring API integration,
           URL-synchronized search, route-backed detail views, and persistent
-          favorites. I also built this personal website using native TypeScript
+          favorites. I also built this personal website using React, TypeScript
           and Vite's multi-page architecture, with project and blog pages
           generated from Markdown.
         </p>
