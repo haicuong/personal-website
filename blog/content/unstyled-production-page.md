@@ -63,7 +63,7 @@ unchanged file keeps its old filename and can be served from cache safely.
 
 The problem: my browser served a **stale cached `index.html`** instead of
 re-checking with the server, even though `must-revalidate` was correctly
-set. That stale HTML still referenced the *old* hashed filenames — files
+set. That stale HTML still referenced the _old_ hashed filenames — files
 that had already been deleted from the server, since my new deployment
 replaced them with differently-hashed versions. The browser requested
 files that no longer existed, resulting in the 404s in the console.
@@ -82,3 +82,7 @@ the same tab, in the narrow window shortly after a fresh deploy went live
 loads a page once and browses; they don't rapid-fire refresh a tab
 immediately after a new deployment. This is very unlikely to affect a
 normal user, and mostly shows up during active development/testing.
+
+## Author's Note
+
+This blog post documents the my debugging process. I used AI as a companion to introduce and explain concepts and help me draft parts of this article, though all code and final edits were tested and verified by me.

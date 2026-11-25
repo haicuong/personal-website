@@ -1,6 +1,7 @@
 ---
 title: "Migrating My Personal Website from Vanilla TypeScript to React Without Losing the MPA"
 date: "2026-10-23"
+lastEditedDate: "2026-11-25"
 description: "How I moved my portfolio from Vanilla TypeScript and Web Components to React while keeping Vite's multi-page setup, my URLs, static hosting, and HTML that already contains the content."
 tags: ["Technical Note", "React", "TypeScript", "Vite", "MPA"]
 coverImage: "/images/projects/personal-website/cover.webp"
@@ -10,7 +11,7 @@ coverImage: "/images/projects/personal-website/cover.webp"
 
 ## Background
 
-The site started as a [Vanilla TypeScript and Vite MPA](/projects/posts/personal-website/). Every URL was a real HTML file:
+The site started as a **Vanilla TypeScript and Vite MPA**. Every URL was a real HTML file:
 
 - Blog posts and projects were written in Markdown. `build-blog.ts` and `build-projects.ts` turned them into static pages under `blog/posts/<slug>/` and `projects/posts/<slug>/`, and wrote the metadata to `public/blogs.json` and `public/projects.json`.
 - The header and footer were Web Components (`<site-header>`, `<site-footer>`) defined in `components.ts`.
@@ -53,12 +54,12 @@ The site is a set of documents. Navigation between them is ordinary links, and a
 
 I use `renderToString()` from `react-dom/server`, which people usually associate with server-side rendering. The difference is when it runs:
 
-|                  | Runtime SSR                  | What this site does                  |
-| ---------------- | ---------------------------- | ------------------------------------ |
-| When HTML is made | on every request             | once, during `npm run build`         |
-| Where it runs    | a Node server in production  | my machine or the CI build           |
-| Output           | a response                   | static files in `dist/`              |
-| Data             | can change per request       | fixed at build time                  |
+|                   | Runtime SSR                 | What this site does          |
+| ----------------- | --------------------------- | ---------------------------- |
+| When HTML is made | on every request            | once, during `npm run build` |
+| Where it runs     | a Node server in production | my machine or the CI build   |
+| Output            | a response                  | static files in `dist/`      |
+| Data              | can change per request      | fixed at build time          |
 
 Nothing renders React on a server after deployment. If I add a post, I rebuild and redeploy, exactly like before the migration.
 
@@ -72,7 +73,9 @@ The build script in `package.json` now has one more step:
 
 ```text
 projects/content/*.md -> build-projects.ts -> projects/posts/<slug>/index.html + public/projects.json
+
 blog/content/*.md     -> build-blog.ts     -> blog/posts/<slug>/index.html + public/blogs.json
+
 both JSON files       -> build-pages.ts    -> dist-ssr/pages.json
 HTML shells + pages.json -> vite build     -> dist/
 ```
@@ -89,9 +92,7 @@ The home, blog index, projects index and 404 pages are different. Their HTML fil
 const projects = readJsonArray<ProjectMetadata>(projectsJsonPath, "projects");
 const blogs = readJsonArray<BlogMetadata>(blogsJsonPath, "blogs");
 
-const homeHtml = renderToString(
-  createElement(HomePage, { projects, blogs }),
-);
+const homeHtml = renderToString(createElement(HomePage, { projects, blogs }));
 
 const manifest: PrerenderedPagesManifest = {
   home: {
@@ -142,8 +143,6 @@ if (!ctx.server) {
 
 The source file is never modified. Only the copy in `dist/` contains the cards. In development, the plugin injects only the data and leaves the root empty, so the dev server renders the page in the browser.
 
-`serializePageData()` replaces every `<` in the JSON with `\u003c`. Post pages embed the full article HTML in this payload, and Markdown can contain raw HTML, so a literal `</script>` anywhere in an article would otherwise close the data script early. Escaping `<` rules that out regardless of the content.
-
 ## Hydrating instead of rendering again
 
 The browser entry, `main.tsx`, reads `data-page` to pick the page component, parses `#__PAGE_DATA__`, checks its shape with type guards, and then chooses between two React APIs:
@@ -180,47 +179,43 @@ Hydration only works if the first render in the browser matches the HTML from th
 - **Dates.** The old cards used `new Date(data.date).toLocaleDateString()`, which depends on the timezone of whoever runs it. The build runs in one timezone and visitors are in others. Initially `formatDisplayDate()` used `timeZone: "UTC"`, but because different locales format dates differently, that still risked hydration mismatches across visitors. The proper fix is a shared `<FormattedDate />` component: it renders the raw ISO date (like `2026-10-04`) inside `<time dateTime="YYYY-MM-DD">` during SSR and initial hydration so the server and client HTML match identically everywhere, then formats for the visitor's browser locale in `useEffect` after hydration while preserving the calendar day.
 - **The theme icon and its entrance animation.** The saved theme lives in `localStorage`, which the build cannot read. `useTheme()` starts with `null`, so the button renders without an icon on both sides, avoiding a hydration mismatch. The real value is read in `useEffect` after hydration. The `.dark` class itself is still set by the inline `<head>` script before the first paint, so the colors are right from the start. Only the icon appears a moment later.
 
-  However, pairing this hydration pattern with animated icons (`lucide-react` and Framer Motion) introduced an animation trap: `<AnimatePresence initial={false}>` only suppresses animations for children present on its *very first mount*. Because `theme` resolves on the second render (post-hydration), Framer Motion treats the resolved icon as a newly inserted child in an already-mounted container and triggers its entrance slide animation on every page reload. The fix was tracking user clicks with a ref (`hasInteractedRef`): passing `initial={false}` directly to the icon component on mount ensures it renders statically on first load and reloads, while enabling `initial={{ y: "-150%", ... }}` only when the visitor actually clicks the toggle. Furthermore, centering the icon required `absolute inset-0 m-auto` rather than CSS translate transforms (`-translate-x-1/2 -translate-y-1/2`), which would otherwise be overwritten by Framer Motion's inline `transform: translateY(...)`.
+  However, pairing this hydration pattern with animated icons (`lucide-react` and Framer Motion) introduced an animation trap: `<AnimatePresence initial={false}>` only suppresses animations for children present on its _very first mount_. Because `theme` resolves on the second render (post-hydration), Framer Motion treats the resolved icon as a newly inserted child in an already-mounted container and triggers its entrance slide animation on every page reload. The fix was tracking user clicks with a ref (`hasInteractedRef`): passing `initial={false}` directly to the icon component on mount ensures it renders statically on first load and reloads, while enabling `initial={{ y: "-150%", ... }}` only when the visitor actually clicks the toggle. Furthermore, centering the icon required `absolute inset-0 m-auto` rather than CSS translate transforms (`-translate-x-1/2 -translate-y-1/2`), which would otherwise be overwritten by Framer Motion's inline `transform: translateY(...)`.
 
 ## How I staged it
 
 I did the migration with an AI coding agent, in four milestones, and reviewed the plan and the diff after each one before committing:
 
-| Milestone | Commit    | Scope                                                         |
-| --------- | --------- | ------------------------------------------------------------- |
-| 1         | `f4cad83` | React dependencies, shared components, theme hook             |
-| 2         | `3a0f898` | Page components, post page rendering, `build-pages.ts`        |
-| 3         | `251bc48` | `main.tsx`, hydration, removing the Web Components            |
-| 4         | `f1895ef` | Documentation and a final audit                               |
+| Milestone | Commit    | Scope                                                  |
+| --------- | --------- | ------------------------------------------------------ |
+| 1         | `f4cad83` | React dependencies, shared components, theme hook      |
+| 2         | `3a0f898` | Page components, post page rendering, `build-pages.ts` |
+| 3         | `251bc48` | `main.tsx`, hydration, removing the Web Components     |
+| 4         | `f1895ef` | Documentation and a final audit                        |
 
 After each milestone I ran `npm run lint:css`, `npx tsc` and `npm run build`. The review step mattered more than I expected:
 
 - **The first plan kept fetching cards.** It prerendered only the page shell and fetched the JSON for the cards after hydration, with build-time cards marked as a later improvement. Milestone 1 even added a `use-cards.ts` hook for it. That would have been the old behavior with more steps. I changed the requirement before Milestone 2: cards must be in the HTML, and the browser must hydrate with the same data. Milestone 2 deleted the hook.
-- **A dead theme button between milestones.** After Milestone 2, post pages had a React-rendered header, but they still loaded the old `main.ts`, so nothing attached a click handler to the button. A `console.log` I had added to `useTheme()` only appeared when post pages were generated, because it was running in Node during `renderToString()`, not in the browser. Effects never run there, so `theme` was always `null`. Milestone 3 fixed it by actually hydrating those pages.
 - **Root persistence I did not need.** The first `main.tsx` stored the React root on the DOM element as `rootElement.__reactRoot__`, to survive the entry module being re-executed during HMR. I questioned it, and checking the modules served by the dev server showed that `main.tsx` has no `import.meta.hot.accept()`, so Vite does a full reload when it changes. Component edits go through Fast Refresh without re-running `main.tsx`. The guard could never run, so it was removed, and each page load now creates exactly one root.
 - **A layout change from the wrapper.** `<div id="root">` now sits between `<body>` and `<main>`. The body is a flex column, but the new div was a plain block, so on tall screens the short listing pages no longer pushed the footer to the bottom. `#root { @apply flex flex-1 flex-col; }` fixed it.
 - **Code blocks ignored the theme toggle.** This existed before the migration, but I only noticed it during the audit. The CSS had `color-scheme: light dark`, so Shiki's `light-dark()` colors followed the OS instead of the `.dark` class. Choosing dark mode on a light OS gave a dark page with light code blocks. It was fixed in a follow-up by setting `color-scheme: light` on `:root` and `color-scheme: dark` on `:root.dark`.
 
 ## What I verified
 
-In headless Edge with an `en-US` locale, against both `npm run dev` and `npm run preview`, on all nine routes at the time:
+I checked all pages in both `npm run dev` and `npm run preview` in browser:
 
 - No console errors and no hydration mismatch warnings.
 - No requests to `/blogs.json` or `/projects.json`.
 - In the production preview, the cards were in the HTML: three project cards and two blog cards on `/`, with no `Loading...` placeholders.
 - The theme toggle cycled `system → dark → light → system`, kept the choice after a reload, and loaded statically without re-triggering entrance animations on page reload.
 
-For the follow-up, I also checked the computed colors of a Shiki code block for each combination of OS preference and saved theme.
-
-What I did not measure is loading speed. Having the cards in the initial HTML should help, since there is no extra request before they appear, but I have no benchmark to support a number. The trade-off in the other direction is also real: every page now loads the React bundle, about 74 kB gzipped in the current build.
+I did not measure loading speed. Having the cards in the initial HTML should help, since there is no extra request before they appear, but I have no benchmark to support a number. The trade-off in the other direction is also real: every page now loads the React bundle, about 74 kB gzipped in the current build.
 
 ## Trade-offs and what I would do differently
 
 - **Hydration parity is now a rule for every component.** Anything that reads the browser during render, or produces different output on different machines, will break hydration. It is easy to forget, and the build does not catch it. Only a browser does.
-- **Dates across locales was a subtle bug.** Initially, `formatDisplayDate()` fixed the timezone, but still used the runtime's default locale. My build ran in `en-US` and formatted `2026-10-04` as `10/4/2026`, while a browser using `vi-VN` formatted it as `4/10/2026`. In browser testing with `vi-VN`, React threw hydration error #418 (text mismatch) on `/` and `/blog/` and fell back to client rendering. I fixed it with a shared `<FormattedDate />` component: rendering the deterministic ISO date in `<time dateTime="YYYY-MM-DD">` during SSR and hydration, then localizing via `useEffect` with `Intl.DateTimeFormat` (using `timeZone: "UTC"` for calendar dates so negative timezones never shift the day).
 - **An extra artifact in the pipeline.** `dist-ssr/pages.json` is one more generated file, and `vite build` now fails if it is missing. Rendering directly inside the Vite plugin would remove it, but would also move React rendering into the Vite config.
 - **Duplicate data in every page.** Each page contains its data twice: once as HTML and once as JSON for hydration. For a handful of cards that is small. For post pages, the whole article HTML is repeated in the payload. A page with no interactive parts would not need that.
-- **JavaScript for small interactions.** The only interactive parts are the theme toggle and the comments, but every page loads React to hydrate the full tree. A partial hydration approach would ship less JavaScript, but would add more machinery than this site needs right now.
+- **JavaScript for small interactions.** The only interactive parts are the theme toggle and the comments, but every page loads React to hydrate the full tree, a trade-off I accept for simplicity.
 - **Planning in milestones worked, but the plan needed reading.** The first version of the architecture had a weaker design for the cards, and the root persistence code looked reasonable until I asked why it was there. Next time I would write down the non-negotiable requirements, like "cards must be in the HTML", before the first plan instead of after it.
 
 ## Takeaways
@@ -230,3 +225,7 @@ What I did not measure is loading speed. Having the cards in the initial HTML sh
 3. Pass the same data to the build and to hydration. If the browser has to fetch it again, the prerendered HTML was only half the job.
 4. Anything that depends on the machine, like `window`, `localStorage`, timezones and locales, is a hydration bug waiting to happen.
 5. Review every milestone. Most of the problems above were caught while reading a diff or questioning a design, not by the build.
+
+## Author's Note
+
+This blog post documents the migration of my personal website. I used AI as a companion to introduce and explain concepts and help me draft parts of this article, though all code and final edits were tested and verified by me.

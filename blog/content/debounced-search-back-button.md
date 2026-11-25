@@ -135,15 +135,16 @@ Two details make this work:
 
 The history list showed another oddity. The previous entry appeared with the current page's title even though its URL was correct. I was rendering the `<title>` from state (the draft and debounced value), and state updates one render before the URL does. The title therefore changed while the old URL was still current, and the old entry received the new title.
 
-
 ![Two history entries showing the same title](/images/blog/debounced-search-back-button/duplicate-title.webp)
 
 The fix was to derive the title from the URL's query, so it changes only after navigation:
 
 ```tsx
-{urlQuery && (
-  <title>{`Search results for "${urlQuery}" | Movie Browser`}</title>
-)}
+{
+  urlQuery && (
+    <title>{`Search results for "${urlQuery}" | Movie Browser`}</title>
+  );
+}
 ```
 
 ## Another duplicate: the home link
@@ -203,3 +204,7 @@ With this version, typing and then pressing Back returns to the previous URL, Ba
 3. Write effects so that running them twice is harmless. StrictMode checks this on mount.
 4. Derive anything that describes the page, such as its title, from the same source as the URL.
 5. After a fix, look for code it made redundant. In my case, that was `onHome`.
+
+## Author's Note
+
+This blog post documents the my debugging process. I used AI as a companion to introduce and explain concepts and help me draft parts of this article, though all code and final edits were tested and verified by me.
