@@ -7,7 +7,7 @@ tags: ["Technical Note", "Backend", "Security", "PostgreSQL", "Performance"]
 coverImage: "/images/blog/testing-and-hardening-movie-browser-api/cover.webp"
 ---
 
-**TL;DR.** After deploying my [Movie Browser API](/projects/posts/movie-browser-api/) with Vitest tests, I used an AI to help me run a security audit, fault-injection checks, `EXPLAIN ANALYZE`, and a 10–100 virtual user load ramp against an isolated Neon branch. That surfaced two reachable `500` crashes, a login timing leak, unrevocable 7-day JWTs, 20 identical TMDB requests simultaneously, and a missing composite index. I fixed them with two commits and one additive SQL migration. Query execution on a large user table dropped from `1.138 ms` to `0.095 ms`, `GET` methods stay fast even though latency at peak 100 VUs is slower.
+**TL;DR.** After deploying my [Movie Browser API](/projects/posts/movie-browser-api/) with Vitest tests, I used an AI to help me run a security audit, fault-injection checks, `EXPLAIN ANALYZE`, and a 10–100 virtual user load ramp against an isolated Neon branch. That surfaced two reachable `500` crashes, a login timing leak, unrevocable 7-day JWTs, 20 identical TMDB requests simultaneously, and a missing composite index. I fixed them with two commits and one additive SQL migration. Query execution on a large user table dropped from `1.138 ms` to `0.095 ms`, `GET` methods stay fast even though latency at peak 100 VUs is higher.
 
 ## Background
 
